@@ -10,5 +10,5 @@ const { text, link, icon } = Astro.props;
 
 <a href={ link || '#' } class="bg-brand-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-brand-500 transition-colors">
   { text }
-  { <i class={ `ml-2 ${ icon || 'ri-arrow-right-line' }` }></i> }
+  { <i class={ `ml-2 ${ icon || 'hidden' }` }></i> }
 </a>
