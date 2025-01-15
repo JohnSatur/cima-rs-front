@@ -1,7 +1,11 @@
 ---
-import Header from '@components/navbarFooter/Header.astro';
-import MainLayout from '../layouts/MainLayout.astro';
 import Image from 'astro/components/Image.astro';
+
+import MainLayout from '@layouts/MainLayout.astro';
+import HeroSection from '@/components/sections/home/HeroSection.astro';
+import SearchForm from '@/components/sections/home/SearchForm.astro';
+import Button from '@/components/ui/Button.astro';
+import LocationCard from '@/components/ui/LocationCard.astro';
 
 import mainHouse from '@images/properties/temp1.jpeg';
 import temp2 from '@images/properties/temp2.jpeg';
@@ -9,114 +13,18 @@ import temp3 from '@images/properties/temp3.jpeg';
 import temp4 from '@images/properties/temp4.jpeg';
 import temp5 from '@images/properties/temp5.jpeg';
 import temp6 from '@images/properties/temp6.jpeg';
-import Button from '@/components/ui/Button.astro';
-import LocationCard from '@/components/ui/LocationCard.astro';
+import CitiesSection from '@/components/sections/home/CitiesSection.astro';
 ---
 
 <MainLayout>
-	<div class="relative h-screen">
-		<div class="absolute inset-0">
-				<Image src={ mainHouse } alt="Modern living room" class="w-full h-full object-cover" />
-				<div class="absolute inset-0 bg-black bg-opacity-40"></div>
-		</div>
-		<div class="relative h-full flex flex-col justify-center items-center text-white px-4">
-				<div class="flex space-x-4 mb-4 lg:text-xl">
-						<span>4 Recámaras</span>
-						<span>2 Baños</span>
-						<span>180 M²</span>
-				</div>
-				<h1 class="text-5xl font-bold text-center mb-4 lg:text-7xl">Residencia en Monte Magno</h1>
-				<p class="text-2xl mb-6 lg:text-4xl">$2,800,000</p>
-				<button class="bg-brand-400 text-black font-semibold px-6 py-3 rounded-full hover:bg-brand-500 transition-colors">
-						Ver detalles <i class="ri-arrow-right-line"></i>
-				</button>
-		</div>
-	</div>
+	<!-- Hero Section -->
+	<HeroSection />
 
 	<!-- Search Section -->
-	<div class="max-w-6xl mx-auto -mt-32 relative z-10 px-4">
-		<div class="bg-black bg-opacity-80 p-6 rounded-lg">
-				<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-						<input type="text" placeholder="Enter Keyword" class="w-full px-4 py-2 rounded-md">
-						<select class="w-full px-4 py-2 rounded-md">
-								<option>All Status</option>
-						</select>
-						<select class="w-full px-4 py-2 rounded-md">
-								<option>All Type</option>
-						</select>
-						<button class="bg-yellow-400 text-black px-6 py-2 rounded-md hover:bg-yellow-500 transition-colors">
-								Buscar <i class="ml-2 ri-search-2-line"></i>
-						</button>
-				</div>
-		</div>
-	</div>
+	<SearchForm />
 
 	<!-- Cities Section -->
-	<section class="max-w-6xl mx-auto py-20 px-4">
-		<h2 class="text-3xl font-bold text-center mb-2">Encuentra propiedades en las principales ciudades</h2>
-		<p class="text-gray-600 text-center mb-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-		
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-				<LocationCard 
-					image={temp2} 
-					city="Xalapa" 
-					propertyCount={10} 
-					url="https://www.google.com"
-				/>
-
-				<!-- Florida -->
-				<div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
-					<Image 
-						src={temp6} 
-						alt="Xalapa, Veracruz" 
-						class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
-					/>
-					<div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
-						<h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Banderilla</h3>
-						<p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
-					</div>
-				</div>
-
-				<!-- Florida -->
-				<div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
-					<Image 
-						src={temp5} 
-						alt="Xalapa, Veracruz" 
-						class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
-					/>
-					<div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
-						<h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Puebla</h3>
-						<p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
-					</div>
-				</div>
-
-				<!-- Florida -->
-				<div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
-					<Image 
-						src={temp4} 
-						alt="Xalapa, Veracruz" 
-						class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
-					/>
-					<div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
-						<h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Veracruz</h3>
-						<p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
-					</div>
-				</div>
-
-				<!-- Florida -->
-				<div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
-					<Image 
-						src={temp3} 
-						alt="Xalapa, Veracruz" 
-						class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
-					/>
-					<div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
-						<h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Coatepec</h3>
-						<p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
-					</div>
-				</div>
-		</div>
-	</section>
+	<CitiesSection />
 
 	<!-- Features Section -->
 	<section class="py-20 px-4 bg-brand-100">

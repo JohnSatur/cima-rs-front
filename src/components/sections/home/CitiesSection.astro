@@ -1,0 +1,133 @@
+---
+import { Image } from 'astro:assets';
+import LocationCard from '@/components/ui/LocationCard.astro';
+
+import temp2 from '@images/properties/temp2.jpeg';
+import temp3 from '@images/properties/temp3.jpeg';
+import temp4 from '@images/properties/temp4.jpeg';
+import temp5 from '@images/properties/temp5.jpeg';
+import temp6 from '@images/properties/temp6.jpeg';
+
+const cities = [
+  {
+    city: 'Xalapa',
+    propertyCount: 20,
+    image: temp2,
+    url: '#'
+  },
+  {
+    city: 'Coatepec',
+    propertyCount: 8,
+    image: temp3,
+    url: '#'
+  },
+  {
+    city: 'Veracruz',
+    propertyCount: 2,
+    image: temp4,
+    url: '#'
+  },
+  {
+    city: 'Puebla',
+    propertyCount: 6,
+    image: temp5,
+    url: '#'
+  },
+  {
+    city: 'CDMX',
+    propertyCount: 10,
+    image: temp6,
+    url: '#'
+  },
+  {
+    city: 'Monterrey',
+    propertyCount: 24,
+    image: temp2,
+    url: '#'
+  }
+];
+
+---
+
+<!-- <section class="max-w-6xl mx-auto py-20 px-4">
+  <h2 class="text-3xl font-bold text-center mb-2">Encuentra propiedades en las principales ciudades</h2>
+  <p class="text-gray-600 text-center mb-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+      <LocationCard 
+        image={temp2} 
+        city="Xalapa" 
+        propertyCount={10} 
+        url="https://www.google.com"
+      />
+
+      <div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
+        <Image 
+          src={temp6} 
+          alt="Xalapa, Veracruz" 
+          class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
+        />
+        <div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
+          <h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Banderilla</h3>
+          <p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
+        </div>
+      </div>
+
+      <div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
+        <Image 
+          src={temp5} 
+          alt="Xalapa, Veracruz" 
+          class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
+        />
+        <div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
+          <h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Puebla</h3>
+          <p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
+        </div>
+      </div>
+
+      <div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
+        <Image 
+          src={temp4} 
+          alt="Xalapa, Veracruz" 
+          class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
+        />
+        <div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
+          <h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Veracruz</h3>
+          <p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
+        </div>
+      </div>
+
+      <div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
+        <Image 
+          src={temp3} 
+          alt="Xalapa, Veracruz" 
+          class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
+        />
+        <div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
+          <h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Coatepec</h3>
+          <p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
+        </div>
+      </div>
+  </div>
+</section> -->
+
+<section class="py-16 px-4 max-w-7xl mx-auto">
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">Properties by Cities</h2>
+      <p class="text-gray-600">Discover Your Ideal Home</p>
+    </div>
+    <a href="#" class="text-brand hover:text-brand/80 flex items-center gap-2 font-medium">
+      Show More
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+      </svg>
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {cities.map((city) => (
+      <LocationCard {...city} />
+    ))}
+  </div>
+</section>
