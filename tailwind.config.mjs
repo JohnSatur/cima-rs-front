@@ -5,7 +5,7 @@ export default {
 		extend: {
 			colors: {
 				brand: {
-					DEFAULT: '#BD9D55',
+					DEFAULT: '#FFBB1D',
 					100: '#F5EAD2',
         	200: '#EAD4A5',
         	300: '#DFC078',
@@ -15,7 +15,8 @@ export default {
         	700: '#826A36',
         	800: '#665227',
         	900: '#493916',
-				}
+				},
+				brandlight: '#FDF6E7',
 			}
 		},
 		container: {

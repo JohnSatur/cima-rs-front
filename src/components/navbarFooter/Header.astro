@@ -1,60 +1,125 @@
 ---
 import { Image } from "astro:assets";
 import logo from '@images/logo.png';
-import Button from "../ui/Button.astro";
+
+const menuItems = [
+  { text: "Comprar", href: "#", active: true },
+  { text: "Rentar", href: "#", active: false },
+  { text: "Quiénes Somos", href: "#", active: false },
+  { text: "Contactar un agente", href: "#", active: false },
+  { text: "Blog", href: "#", active: false },
+];
 ---
 
-<!-- Navigation -->
-<header class="bg-white py-4 px-6 fixed w-full z-40">
-  <nav class="container mx-auto flex items-center justify-between">
-      <div class="flex items-center space-x-12">
-          <a href="#" class="text-2xl font-bold">
-            <Image src={logo} alt="Logo" width={50} />
-          </a>
-          <div class="hidden md:flex space-x-6">
-            <a href="#" class="text-gray-700 font-normal hover:font-semibold duration-150 hover:text-black">Comprar</a>
-            <a href="#" class="text-gray-700 font-normal hover:font-semibold duration-150 hover:text-black">Rentar</a>
-            <a href="#" class="text-gray-700 font-normal hover:font-semibold duration-150 hover:text-black">Quienes Somos</a>
-            <a href="#" class="text-gray-700 font-normal hover:font-semibold duration-150 hover:text-black">Contactar un agente</a>
-            <a href="#" class="text-gray-700 font-normal hover:font-semibold duration-150 hover:text-black">Blog</a>
-          </div>
-      </div>
+<header class="fixed top-0 left-0 right-0 bg-white py-4 px-6 z-50 shadow-md">
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/">
+      <Image src={ logo } alt="Logo" width={50} />
+    </a>
+
+    <!-- Navigation Links -->
+    <nav class="hidden xl:flex items-center space-x-8">
+      {menuItems.map(item => (
+        <a href={item.href} class={`text-sm font-semibold rounded-full transition-colors duration-150
+            ${ item.active  ?
+             'bg-brandlight text-brand rounded-full px-4 py-2' :
+             'text-gray-600 hover:text-black'
+          }`}
+        >
+          { item.text }
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right Section -->
+    <div class="hidden md:flex items-center space-x-8">
+      <!-- Social Icons -->
       <div class="flex items-center space-x-4">
-          <span class="hidden md:inline text-gray-700">+52 228 122 9452</span>
-          <Button text="Inicia Sesión" link="/login" />
-          <Button text="Regístrate" link="/login" />
-          <button id="menuToggle" class="md:hidden text-2xl text-gray-700">
-              <i class="ri-menu-line"></i>
-          </button>
+        <a href="https://www.instagram.com/cima_bienesraices_/" target="_blank" rel="noopener noreferrer" class="text-brand hover:scale-125 text-2xl transition-transform duration-125">
+          <i class="ri-instagram-line"></i>
+        </a>
+        <a href="https://www.facebook.com/CIMABienesRaicesyConstruccion" target="_blank" rel="noopener noreferrer" class="text-brand hover:scale-125 text-2xl transition-transform duration-125">
+          <i class="ri-facebook-line"></i>
+        </a>
       </div>
-  </nav>
+
+      <!-- Phone Numbers -->
+      <div class="flex flex-col items-start space-y-1">
+        <div class="flex items-center space-x-2">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 group">
+            <i class="ri-phone-fill text-2xl text-brand transition-transform duration-200 group-hover:scale-125"></i>
+            <span class="text-gray-600 font-semibold">+52 228 122 9452</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- User Icon -->
+      <i class="ri-map-pin-user-fill text-2xl text-brand cursor-pointer hover:scale-125 transition-transform duration-125"></i>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="xl:hidden text-brand text-2xl" id="menuButton" aria-label="Menu">
+      <i class="ri-menu-line"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+    <div class="h-full flex flex-col p-6">
+      <div class="flex justify-between items-center mb-8">
+        <a href="/">
+          <Image src={logo} alt="Logo" width={50} />
+        </a>
+        <button class="text-brand text-2xl" id="closeButton">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav class="flex flex-col space-y-6 mb-8">
+        {menuItems.map(item => (
+          <a href={item.href} class={`text-lg font-semibold transition-colors duration-150
+              ${ item.active ? 'text-brand' : 'text-gray-600 hover:text-black' }`}
+          >
+            { item.text }
+          </a>
+        ))}
+      </nav>
+
+      <!-- Mobile Social Icons -->
+      <div class="flex space-x-6 mb-8">
+        <a href="https://www.instagram.com/cima_bienesraices_/" target="_blank" rel="noopener noreferrer" class="text-brand hover:scale-125 text-2xl transition-transform duration-125">
+          <i class="ri-instagram-line"></i>
+        </a>
+        <a href="https://www.facebook.com/CIMABienesRaicesyConstruccion" target="_blank" rel="noopener noreferrer" class="text-brand hover:scale-125 text-2xl transition-transform duration-125">
+          <i class="ri-facebook-line"></i>
+        </a>
+      </div>
+
+      <!-- Mobile Phone Numbers -->
+      <div class="flex flex-col space-y-4">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 group">
+          <i class="ri-phone-fill text-2xl text-brand transition-transform duration-200 group-hover:scale-125"></i>
+          <span class="text-gray-600 font-semibold">+52 228 122 9452</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </header>
 
-<!-- Full-screen Menu -->
-<div id="fullScreenMenu" class="fixed inset-0 bg-white z-50 hidden">
-  <button id="menuClose" class="absolute top-4 right-4 text-gray-700 text-3xl">
-    <i class="ri-close-line"></i>
-  </button>
-  <div class="flex flex-col items-center justify-center h-full space-y-8">
-      <a href="#" class="text-3xl text-gray-700 hover:text-black">Comprar</a>
-      <a href="#" class="text-3xl text-gray-700 hover:text-black">Rentar</a>
-      <a href="#" class="text-3xl text-gray-700 hover:text-black">Quienes Somos</a>
-      <a href="#" class="text-3xl text-gray-700 hover:text-black">Contactar un agente</a>
-      <a href="#" class="text-3xl text-gray-700 hover:text-black">Blog</a>
-      <Button text="Contactanos" link="/contacto" icon="ri-arrow-right-line" />
-  </div>
-</div>
-
 <script>
-  const menuToggle = document.getElementById('menuToggle') as HTMLButtonElement;
-  const menuClose = document.getElementById('menuClose') as HTMLButtonElement;
-  const fullScreenMenu = document.getElementById('fullScreenMenu') as HTMLDivElement;
+  const menuButton = document.getElementById('menuButton');
+  const closeButton = document.getElementById('closeButton');
+  const mobileMenu = document.getElementById('mobileMenu');
 
-  menuToggle.addEventListener('click', () => {
-      fullScreenMenu.classList.remove('hidden');
+  menuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('translate-x-full');
+    document.body.style.overflow = 'hidden';
   });
 
-  menuClose.addEventListener('click', () => {
-      fullScreenMenu.classList.add('hidden');
+  closeButton?.addEventListener('click', () => {
+    mobileMenu?.classList.add('translate-x-full');
+    document.body.style.overflow = '';
   });
 </script>

@@ -10,6 +10,7 @@ import temp4 from '@images/properties/temp4.jpeg';
 import temp5 from '@images/properties/temp5.jpeg';
 import temp6 from '@images/properties/temp6.jpeg';
 import Button from '@/components/ui/Button.astro';
+import LocationCard from '@/components/ui/LocationCard.astro';
 ---
 
 <MainLayout>
@@ -56,56 +57,70 @@ import Button from '@/components/ui/Button.astro';
 		<p class="text-gray-600 text-center mb-12">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 		
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-				<!-- New York -->
-				<div class="relative rounded-lg overflow-hidden group">
-						<Image src={ temp2 } alt="Xalapa, Veracruz" class="w-full h-64 object-cover" />
-						<div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
-								<h3 class="text-white text-xl font-bold">Xalapa</h3>
-								<p class="text-white">25 Propiedades</p>
-						</div>
-				</div>
+				<LocationCard 
+					image={temp2} 
+					city="Xalapa" 
+					propertyCount={10} 
+					url="https://www.google.com"
+				/>
 
-				<!-- Chicago -->
-				<div class="relative rounded-lg overflow-hidden group">
-						<Image src={ temp3 } alt="Xalapa, Veracruz" class="w-full h-64 object-cover" />
-						<div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
-								<h3 class="text-white text-xl font-bold">Coatepec</h3>
-								<p class="text-white">14 Propiedades</p>
-						</div>
-				</div>
-
-				<!-- Los Angeles -->
-				<div class="relative rounded-lg overflow-hidden group">
-						<Image src={ temp4 } alt="Xalapa, Veracruz" class="w-full h-64 object-cover" />
-						<div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
-								<h3 class="text-white text-xl font-bold">Veracruz</h3>
-								<p class="text-white">16 Property</p>
-						</div>
-				</div>
-
-				<!-- Miami -->
-				<div class="relative rounded-lg overflow-hidden group">
-						<Image src={ temp5 } alt="Xalapa, Veracruz" class="w-full h-64 object-cover" />
-						<div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
-								<h3 class="text-white text-xl font-bold">Puebla</h3>
-								<p class="text-white">18 Propiedades</p>
-						</div>
+				<!-- Florida -->
+				<div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
+					<Image 
+						src={temp6} 
+						alt="Xalapa, Veracruz" 
+						class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
+					/>
+					<div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
+						<h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Banderilla</h3>
+						<p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
+					</div>
 				</div>
 
 				<!-- Florida -->
-				<div class="relative rounded-lg overflow-hidden group">
-						<Image src={ temp6 } alt="Xalapa, Veracruz" class="w-full h-64 object-cover" />
-						<div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
-								<h3 class="text-white text-xl font-bold">Banderilla</h3>
-								<p class="text-white">25 Propiedades</p>
-						</div>
+				<div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
+					<Image 
+						src={temp5} 
+						alt="Xalapa, Veracruz" 
+						class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
+					/>
+					<div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
+						<h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Puebla</h3>
+						<p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
+					</div>
+				</div>
+
+				<!-- Florida -->
+				<div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
+					<Image 
+						src={temp4} 
+						alt="Xalapa, Veracruz" 
+						class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
+					/>
+					<div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
+						<h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Veracruz</h3>
+						<p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
+					</div>
+				</div>
+
+				<!-- Florida -->
+				<div class="relative rounded-lg overflow-hidden group transform transition-transform duration-300 lg:hover:scale-105">
+					<Image 
+						src={temp3} 
+						alt="Xalapa, Veracruz" 
+						class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" 
+					/>
+					<div class="absolute inset-0 bg-black bg-opacity-40 transition-all duration-300 group-hover:bg-opacity-60 flex flex-col justify-end p-4">
+						<h3 class="text-white text-xl font-bold transform transition-all duration-300 lg:translate-y-2 group-hover:translate-y-0">Coatepec</h3>
+						<p class="text-white lg:opacity-0 transform transition-all duration-300 lg:translate-y-4 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">25 Propiedades</p>
+					</div>
 				</div>
 		</div>
 	</section>
 
 	<!-- Features Section -->
 	<section class="py-20 px-4 bg-brand-100">
-    <div class="container mx-auto">
+    <div class="max-w-7xl mx-auto">
 			<h2 class="text-3xl font-bold text-center mb-2">¿Por qué CIMA Bienes Raíces?</h2>
     <p class="text-gray-600 text-center mb-16">¿Qué nos hace especiales?</p>
     
@@ -143,7 +158,7 @@ import Button from '@/components/ui/Button.astro';
 	</section>
 
 	<!-- Featured Properties -->
-	<section class="max-w-6xl mx-auto py-20 px-4">
+	<section class="max-w-7xl mx-auto py-20 px-4">
     <h2 class="text-3xl font-bold text-center mb-2">Propiedades destacadas</h2>
     <p class="text-gray-600 text-center mb-8">Tu siguiente propiedad se encuentra aquí.</p>
     
@@ -350,6 +365,125 @@ import Button from '@/components/ui/Button.astro';
     <!-- See All Listing Button -->
     <div class="text-center">
         <Button text="Ver todas las propiedades" link="/propiedades" icon="ri-arrow-right-line" />
+    </div>
+	</section>
+
+	<!-- Discover Section -->
+	<section class="relative h-[70vh]">
+		<!-- Background Image with Overlay -->
+		<div class="absolute inset-0">
+			<Image src={ mainHouse } alt="Modern living room" class="w-full h-full object-cover" />
+			<div class="absolute inset-0 bg-black/50"></div>
+		</div>
+
+		<!-- Content -->
+		<div class="relative h-full flex flex-col items-center justify-center text-center px-4">
+			<h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 max-w-4xl">Tu próxima propiedad te está esperando</h2>
+			<p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl">Encuentra la propiedad perfecta para ti en CIMA Bienes Raíces. Nuestro equipo de expertos te ayudará a encontrar la propiedad ideal que se ajuste a tus necesidades.</p>
+			<Button text="Conoce a nuestro equipo" link="/propiedades" icon="ri-arrow-right-line" />
+		</div>
+	</section>
+
+	<section class="max-w-7xl mx-auto py-20 px-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Content Column -->
+        <div class="space-y-8">
+            <div class="space-y-4">
+                <h2 class="text-3xl md:text-4xl font-bold leading-tight">
+                    15 años transformando vidas
+                </h2>
+                <p class="text-gray-600">
+										CIMA Bienes Raíces es una empresa de bienes raíces que se dedica a la venta, arriendo y compra de propiedades.
+										Nuestra misión es ayudar a nuestros clientes a encontrar la propiedad perfecta para sus necesidades.
+                </p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-8">
+                <!-- Stat 1 -->
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold mb-2">$18M</div>
+                    <p class="text-gray-600">Owned From Properties Transactions</p>
+                </div>
+
+                <!-- Stat 2 -->
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold mb-2">15K+</div>
+                    <p class="text-gray-600">Properties For Sell</p>
+                </div>
+
+                <!-- Stat 3 -->
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold mb-2">26K+</div>
+                    <p class="text-gray-600">Properties For Buy</p>
+                </div>
+
+                <!-- Stat 4 -->
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold mb-2">890</div>
+                    <p class="text-gray-600">Daily Completed Transactions</p>
+                </div>
+            </div>
+
+            <div>
+                <a href="#" class="inline-flex items-center px-6 py-3 bg-yellow-400 text-black rounded-full hover:bg-yellow-500 transition-colors">
+                    Learn More
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Image Column -->
+        <div class="relative">
+            <div class="rounded-2xl overflow-hidden">
+                <Image src={ temp5 } alt="Modern living room" class="w-full h-full object-cover" />
+            </div>
+        </div>
+    </div>
+	</section>
+
+	<section class="max-w-7xl mx-auto py-20 px-4">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Últimos Artículos</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Mantente actualizado con las últimas tendencias y noticias del mercado inmobiliario a través de nuestro blog.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <!-- Article 1 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
+            <img src="/placeholder.svg?height=200&width=400" alt="Imagen del artículo 1" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h3 class="font-bold text-xl mb-2">Cómo elegir la mejor ubicación para tu hogar</h3>
+                <p class="text-gray-600 mb-4">Descubre los factores clave que debes considerar al elegir la ubicación de tu próxima casa.</p>
+                <a href="#" class="text-blue-600 hover:underline">Leer más</a>
+            </div>
+        </div>
+
+        <!-- Article 2 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
+            <img src="/placeholder.svg?height=200&width=400" alt="Imagen del artículo 2" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h3 class="font-bold text-xl mb-2">Tendencias de diseño interior para 2024</h3>
+                <p class="text-gray-600 mb-4">Explora las últimas tendencias en diseño interior que darán vida a tu hogar este año.</p>
+                <a href="#" class="text-blue-600 hover:underline">Leer más</a>
+            </div>
+        </div>
+
+        <!-- Article 3 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
+            <img src="/placeholder.svg?height=200&width=400" alt="Imagen del artículo 3" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <h3 class="font-bold text-xl mb-2">Guía para invertir en propiedades comerciales</h3>
+                <p class="text-gray-600 mb-4">Aprende los aspectos fundamentales para invertir exitosamente en el mercado de propiedades comerciales.</p>
+                <a href="#" class="text-blue-600 hover:underline">Leer más</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+			<Button text="Ir al blog" link="/blog" icon="ri-arrow-right-line" />
     </div>
 	</section>
 </MainLayout>
