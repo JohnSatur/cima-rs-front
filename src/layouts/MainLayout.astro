@@ -1,12 +1,10 @@
 ---
-import Footer from "@/components/navbarFooter/Footer.astro";
-import Header from "@/components/navbarFooter/Header.astro";
-
-
+import Footer from "@components/layout/Footer.astro";
+import Header from "@components/layout/Header.astro";
 ---
 
 <!doctype html>
-<html lang="es-MX">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -23,7 +21,7 @@ import Header from "@/components/navbarFooter/Header.astro";
         href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
 	</head>
-	<body class="bg-slate-100 font-body">
+	<body class="bg-white font-body">
 		<Header />
 		<main class="max-w-[1920px] mx-auto">
 			<slot />
