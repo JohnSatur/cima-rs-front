@@ -1,8 +1,8 @@
 export enum ConstructionType {
-  CASA = 'casa',
-  DEPARTAMENTO = 'departamento',
-  LOFT = 'loft',
-  LOCAL_COMERCIAL = 'local_comercial',
-  EDIFICIO = 'edificio',
-  OFICINA = 'oficina',
+  CASA = 'Casa',
+  DEPARTAMENTO = 'Departamento',
+  LOFT = 'Loft',
+  LOCAL_COMERCIAL = 'Local comercial',
+  EDIFICIO = 'Edificio',
+  OFICINA = 'Oficina',
 }

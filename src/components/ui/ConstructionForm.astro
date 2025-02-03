@@ -2,12 +2,398 @@
 import { DealType } from '@enums/property.enum';
 import { ConstructionType } from '@enums/construction.enum';
 
-const handleSubmit = async (event: SubmitEvent) => {
+const dealTypes = Object.entries(DealType);
+const constructionTypes = Object.entries(ConstructionType);
+
+interface FormData {
+  address: {
+    street?: string;
+    intNumber?: string;
+    extNumber?: string; 
+    neighborhood?: string;
+    zipcode: number;
+    city?: string;
+    state?: string;
+    country: string;
+  };
+  description?: string;
+  price?: number;
+  landArea?: number;
+  dealType?: string;
+  services?: string[];
+  location?: {
+    longitude?: number;
+    latitude?: number;
+  };
+  notes?: string;
+  commissionPercentage?: number;
+  rooms?: number;
+  bathrooms?: number;
+  builtArea?: number;
+  floors?: number;
+  equipment?: string[] | string;
+  finishes?: string;
+  furnished?: boolean;
+  constructionStyle?: string;
+  private?: boolean;
+  yearOfConstruction?: number;
+  constructionType: string;
+}
+
+let successMessage: string = '';
+let errorMessage: string = '';
+
+function nestObject(flat: Record<string, any>) {
+  const nested: Record<string, any> = {};
+  for (const [key, value] of Object.entries(flat)) {
+    const keys = key.split('.');
+    let current = nested;
+    for (let i = 0; i < keys.length; i++) {
+      const part = keys[i];
+      if (i === keys.length - 1) {
+        current[part] = value;
+      } else {
+        current[part] = current[part] || {};
+        current = current[part];
+      }
+    }
+  }
+  return nested;
+}
+
+function convertNumbersAndBooleans(data: any) {
+  // Convertir números
+  const numericFields = [
+    'price', 'landArea', 'commissionPercentage', 'rooms',
+    'bathrooms', 'builtArea', 'floors', 'yearOfConstruction'
+  ];
   
+  numericFields.forEach(field => {
+    if (data[field]) data[field] = Number(data[field]);
+  });
+
+  // Convertir campos anidados
+  if (data.address) {
+    data.address.intNumber = data.address.intNumber ? Number(data.address.intNumber) : undefined;
+    data.address.extNumber = data.address.extNumber ? Number(data.address.extNumber) : undefined;
+    data.address.zipcode = Number(data.address.zipcode);
+  }
+  if (data.location) {
+    data.location.latitude = data.location.latitude ? Number(data.location.latitude) : undefined;
+    data.location.longitude = data.location.longitude ? Number(data.location.longitude) : undefined;
+  }
+
+  // Convertir booleanos
+  data.furnished = data.furnished === 'on';
+  data.private = data.private === 'on';
+
+  return data;
+}
+
+if (Astro.request.method === 'POST') {
+  try {
+    const formData = await Astro.request.formData();
+    const flatData = Object.fromEntries(formData.entries());
+    const nestedData = nestObject(flatData);
+    const data: Partial<FormData> = convertNumbersAndBooleans(nestedData);
+
+    // Guardar copia del formulario
+    const formBackup = { ...data };
+
+    // Parsear equipment desde JSON
+    if (typeof data.equipment === 'string') {
+      data.equipment = data.equipment.trim() !== '' ? JSON.parse(data.equipment) : [];
+    }
+
+    // Asegurar minúsculas de enums
+    if (data.dealType) data.dealType = data.dealType.toLowerCase();
+    if (data.constructionType) data.constructionType = data.constructionType.toLowerCase();
+
+
+    // Enviar datos al backend
+    const response = await fetch('http://localhost:3000/api/v1/properties/constructions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      successMessage = 'Construcción agregada correctamente';
+    } else {
+      errorMessage = 'Error al agregar la construcción' + await response.text();
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error);
+    }
+  }
 }
 ---
 
-<!-- <form onsubmit={handleSubmit(e)}>
-  <h1>Crear una construcción</h1>
-  <input type="submit" value="Enviar">
-</form> -->
+<form method="POST" class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg mt-32">
+  <h2 class="text-3xl font-bold text-gray-800 mb-8 pb-4 border-b">Agregar construcción</h2>
+
+  <!-- Dirección -->
+  <div class="mb-8">
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">Dirección</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Calle</label>
+        <input type="text" name="address.street" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Calle">
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Número interior</label>
+          <input type="text" name="address.intNumber" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="# Int">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Número exterior</label>
+          <input type="text" name="address.extNumber" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="# Ext">
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Colonia</label>
+        <input type="text" name="address.neighborhood" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Colonia">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Código postal</label>
+        <input type="number" name="address.zipcode" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Código postal">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
+        <input type="text" name="address.city" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Ciudad">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+        <input type="text" name="address.state" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Estado">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">País</label>
+        <input type="text" name="address.country" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="País">
+      </div>
+    </div>
+  </div>
+
+  <!-- General Propiedad -->
+  <div class="mb-8">
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">Información General</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
+        <textarea rows="4" name="description" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Descripción detallada de la propiedad"></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Precio</label>
+        <div class="relative">
+          <span class="absolute left-3 top-2 text-gray-500">$</span>
+          <input type="number" name="price" class="w-full pl-8 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Precio">
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de trato</label>
+        <select name="dealType" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          <option value="" disabled selected>Seleccionar tipo de trato</option>
+          {
+            dealTypes.map(([key, value]) => (
+              <option value={key.charAt(0).toUpperCase() + key.slice(1).toLowerCase()}>{value}</option>
+            ))
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Características -->
+  <div class="mb-8">
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">Características</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">m² Terreno</label>
+        <input type="number" name="landArea" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="m² terreno">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">m² Construcción</label>
+        <input type="number" name="builtArea" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="m² construcción">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Número de pisos</label>
+        <input type="number" name="floors" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="# pisos">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Cuartos</label>
+        <input type="number" name="rooms" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="# cuartos">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Baños</label>
+        <input type="number" name="bathrooms" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="# baños">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Año de construcción</label>
+        <input type="number" name="yearOfConstruction" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Año" min="1900" max={new Date().getFullYear()}>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ubicación -->
+  <div class="mb-8">
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">Ubicación</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Longitud</label>
+        <input type="number" name="location.longitude" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Longitud" step="any">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Latitud</label>
+        <input type="number" name="location.latitude" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Latitud" step="any">
+      </div>
+    </div>
+  </div>
+
+  <!-- Detalles adicionales -->
+  <div class="mb-8">
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">Detalles adicionales</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Equipamiento</label>
+        <div class="space-y-2">
+          <input type="text" id="equipmentInput" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Agregar equipamiento (presiona Enter)">
+          <div id="equipmentList" class="mt-2 space-y-2"></div>
+          <input type="hidden" name="equipment" id="equipmentData">
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Acabados</label>
+        <input type="text" name="finishes" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Acabados">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Estilo de construcción</label>
+        <input type="text" name="constructionStyle" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Estilo de construcción">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de construcción</label>
+        <select name="constructionType" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          <option value="" disabled selected>Seleccionar tipo de construcción</option>
+          {
+            constructionTypes.map(([key, value]) => (
+              <option value={key.charAt(0).toUpperCase() + key.slice(1).toLowerCase()}>{value}</option>
+            ))
+          }
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Porcentaje de comisión</label>
+        <div class="relative">
+          <input type="number" name="commissionPercentage" class="w-full pr-8 pl-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Porcentaje">
+          <span class="absolute right-3 top-2 text-gray-500">%</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <div class="flex items-center">
+        <input type="checkbox" name="furnished" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label class="ml-2 block text-sm text-gray-700">¿Está amueblada?</label>
+      </div>
+      <div class="flex items-center">
+        <input type="checkbox" name="private" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label class="ml-2 block text-sm text-gray-700">¿Está en una zona privada?</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notas -->
+  <div class="mb-8">
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">Notas adicionales</h3>
+    <textarea rows="4" name="notes" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Notas adicionales"></textarea>
+  </div>
+
+  <!-- Botón de envío -->
+  <div class="flex justify-end">
+    <button type="submit" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+      Guardar construcción
+    </button>
+  </div>
+</form>
+
+{successMessage && (
+  <div class="success-message fixed top-28 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg">
+    {successMessage}
+  </div>
+)}
+
+{errorMessage && (
+  <div class="error-message fixed top-28 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
+    {errorMessage}
+  </div>
+)}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const equipmentInput = document.getElementById('equipmentInput') as HTMLInputElement;
+    const equipmentList = document.getElementById('equipmentList') as HTMLDivElement;
+    const equipmentData = document.getElementById('equipmentData') as HTMLInputElement;
+    let equipmentItems: string[] = [];
+
+    // Función para actualizar la lista visual y el campo oculto
+    const updateEquipmentList = () => {
+      equipmentList.innerHTML = ''; // Limpia la lista
+      equipmentItems.forEach((item, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'flex items-center justify-between bg-gray-100 p-2 rounded';
+
+        // Texto del elemento
+        const itemText = document.createElement('span');
+        itemText.textContent = item;
+        itemDiv.appendChild(itemText);
+
+        // Botón de eliminar
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = '×';
+        deleteButton.className = 'text-red-500 hover:text-red-700';
+        deleteButton.onclick = () => {
+          equipmentItems.splice(index, 1); // Elimina el elemento del arreglo
+          updateEquipmentList(); // Actualiza la lista visual
+        };
+        itemDiv.appendChild(deleteButton);
+
+        equipmentList.appendChild(itemDiv);
+      });
+
+      // Actualiza el campo oculto con los datos
+      equipmentData.value = JSON.stringify(equipmentItems);
+    };
+
+    // Agregar equipamiento al presionar Enter
+    equipmentInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault(); // Evita el comportamiento por defecto del Enter
+        const value = equipmentInput.value.trim();
+
+        if (value) {
+          equipmentItems.push(value); // Agrega el valor al arreglo
+          equipmentInput.value = ''; // Limpia el input
+          updateEquipmentList(); // Actualiza la lista visual
+        }
+      }
+    });
+  });
+
+  const autoDismissMessages = () => {
+    const successElement = document.querySelector('.success-message');
+    const errorElement = document.querySelector('.error-message');
+
+    if (successElement) {
+      setTimeout(() => {
+        successElement.remove();
+      }, 3000);
+    }
+
+    if (errorElement) {
+      setTimeout(() => {
+        errorElement.remove();
+      }, 3000);
+    }
+
+  }
+
+  autoDismissMessages();
+</script>
