@@ -8,7 +8,6 @@ const currentPath = Astro.url.pathname;
 const menuItems = [
   { text: "Inicio", href: "/" },
   { text: "Propiedades", href: "/properties" },
-  // { text: "Rentar", href: "/properties", active: false },
   { text: "Quiénes Somos", href: "/about" },
   { text: "Contactar un agente", href: "/contact" },
   { text: "Blog", href: "/blog" },
@@ -33,7 +32,7 @@ const menuItemsWithActive = menuItems.map(item => ({
       {menuItemsWithActive.map(item => (
         <a href={item.href} class={`text-sm font-semibold rounded-full transition-colors duration-150
             ${ item.isActive  ?
-             'bg-brandlight text-brand rounded-full px-4 py-2' :
+             'bg-brandlight text-brand-500 rounded-full px-4 py-2' :
              'text-gray-600 hover:text-black'
           }`}
         >

@@ -1,23 +1,22 @@
 ---
 import { Image } from 'astro:assets';
 import Button from '@components/ui/Button.astro';
-import mainHouse from '@images/properties/temp1.jpeg';
+import mainHouse from '@images/properties/main-house.jpg';
 
 ---
-
-<div class="relative h-screen">
+<div class="relative h-[85vh]">
   <div class="absolute inset-0">
       <Image src={ mainHouse } alt="Modern living room" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-black bg-opacity-40"></div>
   </div>
   <div class="relative h-full flex flex-col justify-center items-center text-white px-4">
       <div class="flex space-x-4 mb-4 lg:text-xl">
-          <span>4 Recámaras</span>
-          <span>2 Baños</span>
-          <span>180 M²</span>
+          <span>5 Recámaras</span>
+          <span>9 Baños</span>
+          <span>1,500 M²</span>
       </div>
-      <h1 class="text-5xl font-bold text-center mb-4 lg:text-7xl">Residencia en Monte Magno</h1>
-      <p class="text-2xl mb-6 lg:text-4xl">$2,800,000</p>
-      <Button text="Ver detalles" link="/properties" icon="ri-arrow-right-line" />
+      <h1 class="text-5xl font-bold text-center mb-4 lg:text-7xl">Residencia en Rancho San Salvador</h1>
+      <p class="text-2xl mb-6 lg:text-4xl">$17,854,000</p>
+      <Button text="Ver detalles" link="/properties/67aadd28f2f06a4ee666e27b" icon="ri-arrow-right-line" />
   </div>
 </div>

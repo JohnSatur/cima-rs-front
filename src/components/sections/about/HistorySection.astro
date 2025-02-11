@@ -1,11 +1,14 @@
 ---
+import { Image } from "astro:assets";
+
+import office from '@images/office.jpg';
 ---
 
 <section id="historia" class="py-20 bg-white">
   <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
     <div class="relative h-[400px] rounded-lg overflow-hidden">
-      <img
-        src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+      <Image
+        src={office}
         alt="Oficinas CIMA"
         class="w-full h-full object-cover"
       />

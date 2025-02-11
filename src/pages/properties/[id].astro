@@ -3,41 +3,51 @@ import PropertyFeaturesSection from "@components/sections/properties/PropertyFea
 import PropertyGallerySection from "@components/sections/properties/PropertyGallerySection.astro";
 import MainLayout from "@layouts/MainLayout.astro";
 
-import temp1 from '@images/properties/temp1.jpeg';
-import temp2 from '@images/properties/temp2.jpeg';
-import temp3 from '@images/properties/temp3.jpeg';
-import temp4 from '@images/properties/temp4.jpeg';
-import temp5 from '@images/properties/temp5.jpeg';
-import temp6 from '@images/properties/temp6.jpeg';
+import main1 from '@images/properties/main-house-1.jpeg';
+import main2 from '@images/properties/main-house-2.jpg';
+import main3 from '@images/properties/main-house-3.jpg';
+import main4 from '@images/properties/main-house-4.jpg';
+import main5 from '@images/properties/main-house-5.jpg';
 import LocationMapSection from "@/components/sections/properties/LocationMapSection.astro";
 import ContactFormSection from "@/components/sections/properties/ContactFormSection.astro";
 
+import realtor from '@images/claudia-1.jpg';
+import { Image } from "astro:assets";
+
+// Id de la ruta
+const { id } = Astro.params;
+
+const response = await fetch(`http://localhost:3000/api/v1/properties/constructions/${id}`);
+const propertyTest = await response.json();
+
+if (!propertyTest) {
+  return new Response(null, { status: 404, statusText: 'Propiedad no encontrada' });
+}
 
 const property = {
   id: 1,
   title: "Tu próxima propiedad te espera",
-  price: 2500000,
+  price: 17854000,
   currency: "MXN",
   type: "Venta",
   description: "Hermosa casa moderna con acabados de lujo, ubicada en una de las zonas más exclusivas de la ciudad...",
   features: {
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 280,
-    landArea: 400,
+    bedrooms: 5,
+    bathrooms: 9,
+    area: 618,
+    landArea: 1500,
     floors: 2
   },
   images: [
-    temp1,
-    temp2,
-    temp3,
-    temp4,
-    temp5,
-    temp6
+    main1,
+    main2,
+    main3,
+    main4,
+    main5
   ],
   isFeatured: true,
   location: {
-    address: "Calle Principal 123, Colonia Centro, Ciudad",
+    address: "Rancho San Salvador",
     coordinates: {
       lat: 19.4326,
       lng: -99.1332
@@ -54,7 +64,7 @@ const property = {
     name: "Claudia de la Luna",
     phone: "+52 228 108 1122",
     email: "claudia@cimabienesraices.com",
-    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+    photo: realtor
   }
 };
 ---
@@ -108,7 +118,7 @@ const property = {
       <!-- Agent Information -->
       <div class="bg-white p-8 rounded-lg shadow-lg">
         <div class="flex items-center gap-4 mb-6">
-          <img
+          <Image
             src={property.agent.photo}
             alt={property.agent.name}
             class="w-16 h-16 rounded-full object-cover"

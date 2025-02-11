@@ -1,18 +1,22 @@
 ---
+import { Image } from 'astro:assets';
+
+import mission from '@images/mission.jpg';
+
 ---
 
 <section class="py-20">
-  <div class="max-w-7xl mx-auto px-4">
+  <div class="max-w-7xl mx-auto px-4 flex gap-4">
     <!-- Mission -->
-    <div class="bg-gray-50 rounded-2xl p-8 md:p-12 mb-12">
-      <div class="max-w-3xl mx-auto text-center">
+    <div class=" bg-brand-100 rounded-2xl p-8 md:p-12 m-auto flex-1">
+      <div class="mx-auto text-center">
         <h2 class="text-3xl font-bold mb-6">Nuestra Misión</h2>
         <p class="text-gray-600 text-lg leading-relaxed mb-8">
           Nuestra misión es lograr que tu sueño de adquirir un bien inmueble, ya sea en venta o renta, 
           se haga realidad. Brindamos un servicio de alto valor profesional, con confianza, compromiso y seguridad.
         </p>
-        <img
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+        <Image
+          src={mission}
           alt="Familia feliz"
           class="w-full h-64 object-cover rounded-lg"
         />
@@ -20,8 +24,8 @@
     </div>
 
     <!-- Vision -->
-    <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 md:p-12">
-      <div class="max-w-3xl mx-auto text-center">
+    <div class=" bg-brand-100 rounded-2xl p-8 md:p-12 m-auto flex-1">
+      <div class="mx-auto text-center">
         <h2 class="text-3xl font-bold mb-6">Nuestra Visión</h2>
         <p class="text-gray-600 text-lg leading-relaxed mb-8">
           Nuestra visión es ser líderes en el ramo de bienes raíces, destacando por nuestro servicio, 
