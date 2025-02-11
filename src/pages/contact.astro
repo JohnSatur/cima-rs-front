@@ -1,0 +1,104 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+
+import contactBg from '@images/contact-bg.jpg';
+import { Image } from 'astro:assets';
+
+---
+
+<MainLayout title="Contacto">
+  <div class="min-h-screen bg-brand-600 flex items-center justify-center p-4">
+    <div class="w-full max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
+
+      <div class="text-white space-y-8">
+        <h2 class="text-2xl font-medium">Contacto</h2>
+        <div class="space-y-4">
+          <h1 class="text-4xl lg:text-5xl font-light leading-tight">
+            ¿Buscar un hogar?<br />
+            Nosotros podemos hacerlo realidad.
+          </h1>
+          <div class="flex items-center gap-2">
+            <i class="ri-arrow-right-long-fill text-2xl"></i>
+          </div>
+        </div>
+        
+        <!-- Social Links -->
+        <div class="pt-12">
+          <div class="flex items-center gap-6">
+            <p class="text-sm">Síguenos</p>
+            <div class="flex gap-4">
+              <a href="#" class="hover:opacity-75 transition-opacity">
+                <span class="sr-only">Instagram</span>
+                <i class="ri-instagram-fill text-3xl"></i>
+              </a>
+              <a href="#" class="hover:opacity-75 transition-opacity">
+                <span class="sr-only">Facebook</span>
+                <i class="ri-facebook-circle-fill text-3xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Contact Form -->
+      <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-xl">
+        <div class="max-w-md mx-auto">
+          <h3 class="text-xl text-gray-800 font-medium mb-8">Comunícate con nosotros</h3>
+          
+          <form class="space-y-6">
+            <div>
+              <label for="name" class="block text-sm text-gray-600 mb-2">Nombre</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-[#1939FF] focus:ring-1 focus:ring-[#1939FF] transition-colors"
+                placeholder="Ingresa tu nombre completo"
+              />
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm text-gray-600 mb-2">E-mail</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-[#1939FF] focus:ring-1 focus:ring-[#1939FF] transition-colors"
+                placeholder="tu@email.com"
+              />
+            </div>
+
+            <div>
+              <label for="phone" class="block text-sm text-gray-600 mb-2">Teléfono</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-[#1939FF] focus:ring-1 focus:ring-[#1939FF] transition-colors"
+                placeholder="Ingresa tu teléfono"
+              />
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm text-gray-600 mb-2">Motivo</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="3"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-[#1939FF] focus:ring-1 focus:ring-[#1939FF] transition-colors"
+                placeholder="Cuéntanos en qué podemos ayudarte"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full bg-[#1939FF] text-white font-medium py-3 px-6 rounded-lg hover:bg-[#1939FF]/90 transition-colors"
+            >
+              Enviar mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>

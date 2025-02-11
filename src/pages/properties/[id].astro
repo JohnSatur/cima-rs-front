@@ -1,0 +1,139 @@
+---
+import PropertyFeaturesSection from "@components/sections/properties/PropertyFeaturesSection.astro";
+import PropertyGallerySection from "@components/sections/properties/PropertyGallerySection.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+
+import temp1 from '@images/properties/temp1.jpeg';
+import temp2 from '@images/properties/temp2.jpeg';
+import temp3 from '@images/properties/temp3.jpeg';
+import temp4 from '@images/properties/temp4.jpeg';
+import temp5 from '@images/properties/temp5.jpeg';
+import temp6 from '@images/properties/temp6.jpeg';
+import LocationMapSection from "@/components/sections/properties/LocationMapSection.astro";
+import ContactFormSection from "@/components/sections/properties/ContactFormSection.astro";
+
+
+const property = {
+  id: 1,
+  title: "Tu próxima propiedad te espera",
+  price: 2500000,
+  currency: "MXN",
+  type: "Venta",
+  description: "Hermosa casa moderna con acabados de lujo, ubicada en una de las zonas más exclusivas de la ciudad...",
+  features: {
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 280,
+    landArea: 400,
+    floors: 2
+  },
+  images: [
+    temp1,
+    temp2,
+    temp3,
+    temp4,
+    temp5,
+    temp6
+  ],
+  isFeatured: true,
+  location: {
+    address: "Calle Principal 123, Colonia Centro, Ciudad",
+    coordinates: {
+      lat: 19.4326,
+      lng: -99.1332
+    }
+  },
+  amenities: [
+    "Alberca",
+    "Gimnasio",
+    "Jardín",
+    "Estacionamiento",
+    "Seguridad 24/7"
+  ],
+  agent: {
+    name: "Claudia de la Luna",
+    phone: "+52 228 108 1122",
+    email: "claudia@cimabienesraices.com",
+    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+  }
+};
+---
+
+<MainLayout title="Detalles de propiedad">
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Gallery Section -->
+    <PropertyGallerySection images={property.images} isFeatured={property.isFeatured} />
+
+    <!-- Basic Information -->
+    <div class="mt-8">
+      <div class="flex justify-between items-start">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">{property.title}</h1>
+          <p class="text-7xl font-bold mt-2 text-green-700">
+            ${new Intl.NumberFormat('es-MX').format(property.price)} {property.currency}
+          </p>
+        </div>
+        <span class={`px-4 py-2 rounded-full font-semibold ${
+          property.type === 'Venta' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+        }`}>
+          {property.type}
+        </span>
+      </div>
+      <p class="mt-4 text-gray-600">{property.description}</p>
+    </div>
+
+    <!-- Features -->
+    <PropertyFeaturesSection {...property.features} />
+
+    <!-- Location -->
+    <LocationMapSection coordinates={property.location.coordinates} />
+
+    <!-- Amenities -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-semibold mb-4">Servicios y amenidades</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {property.amenities.map((amenity) => (
+          <div class="flex items-center gap-2 text-3xl">
+            <i class="ri-checkbox-circle-fill text-brand"></i>
+            <span>{amenity}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="mt-12 grid md:grid-cols-2 gap-8">
+      <ContactFormSection />
+      
+      <!-- Agent Information -->
+      <div class="bg-white p-8 rounded-lg shadow-lg">
+        <div class="flex items-center gap-4 mb-6">
+          <img
+            src={property.agent.photo}
+            alt={property.agent.name}
+            class="w-16 h-16 rounded-full object-cover"
+          />
+          <div>
+            <h3 class="text-xl font-semibold">{property.agent.name}</h3>
+            <p class="text-gray-600">Agente Inmobiliario</p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <p class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+            </svg>
+            {property.agent.phone}
+          </p>
+          <p class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+            </svg>
+            {property.agent.email}
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</MainLayout>

@@ -1,85 +1,88 @@
 ---
-import { Image } from 'astro:assets';
+import Image from 'astro/components/Image.astro';
 
-interface Props {
-  image: ImageMetadata;
-  title: string;
-  location: string;
-  price: number;
-  type: string;
-  beds: number;
-  baths: number;
-  area: number;
-  status: string;
-  tags?: string[];
+export interface Props {
+    imageSrc: ImageMetadata;
+    imageAlt: string;
+    saleType: string;
+    featured?: boolean;
+    price: number;
+    currency: string;
+    bedrooms: number;
+    bathrooms: number;
+    area: number;
+    address: {
+        street: string;
+        intNumber: string;
+        extNumber?: string;
+        neighborhood: string;
+        zipCode: number;
+        city: string;
+        state: string;
+        country: string;
+    };
+    buttonText?: string;
 }
 
-const { image, title, location, price, type, beds, baths, area, status, tags = [] } = Astro.props;
+const {
+    imageSrc,
+    imageAlt,
+    saleType,
+    featured,
+    price,
+    currency,
+    bedrooms,
+    bathrooms,
+    area,
+    address,
+    buttonText = "Ver detalles",
+} = Astro.props;
+
+const formattedAddress = `${address.street} ${address.extNumber}${address.intNumber ? ` Int. ${address.intNumber}` : ''}, ${address.neighborhood}, ${address.city}, ${address.state}, ${address.country}, CP ${address.zipCode}`;
+
+const tagColor = saleType === "Venta" ? "bg-blue-500" : "bg-green-500";
 ---
 
-<div class="bg-white rounded-2xl overflow-hidden group transition-shadow duration-300">
-  <div class="relative">
-    <!-- Status and Tags -->
-    <div class="absolute top-4 left-4 flex gap-2 z-10">
-      <span class="bg-white text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
-        {status}
-      </span>
-      {tags.map(tag => (
-        <span class="bg-brand text-white px-3 py-1 rounded-full text-sm font-medium">
-          {tag}
-        </span>
-      ))}
+<div class="rounded-lg overflow-hidden bg-white shadow-lg">
+    <div class="relative">
+        <Image src={imageSrc} alt={imageAlt} class="w-full h-64 object-cover" />
+        <!-- Etiqueta dinámica -->
+        <div class={`absolute top-4 left-4 ${tagColor} text-white px-4 py-2 rounded-full text-xs font-semibold uppercase`}>
+            {saleType}
+        </div>
+        {featured && (
+            <div class="absolute top-4 right-4 bg-yellow-400 text-gray-800 px-4 py-2 rounded-full text-xs font-semibold uppercase">
+                Destacado
+            </div>
+        )}
     </div>
-
-    <!-- Image -->
-    <div class="aspect-[4/3] overflow-hidden">
-      <Image
-        src={image}
-        alt={title}
-        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-      />
+    <div class="p-6">
+        <div class="flex justify-between items-baseline mb-4">
+            <h2 class="text-3xl font-bold text-gray-800">{price.toLocaleString('es-MX', { style: 'currency', currency: currency })}</h2>
+            <span class="text-sm text-gray-500 font-medium">{currency}</span>
+        </div>
+        <div class="flex justify-between items-center">
+            <div class="flex gap-4 text-gray-600">
+                <span class="flex items-center text-sm font-medium">
+                    <i class="ri-home-2-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {bedrooms}
+                </span>
+                <span class="flex items-center text-sm font-medium">
+                    <i class="ri-drop-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {bathrooms}
+                </span>
+                <span class="flex items-center text-sm font-medium">
+                    <i class="ri-grid-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {area} M²
+                </span>
+            </div>
+        </div>
+        <address class="text-gray-600 my-4 not-italic">
+          {formattedAddress.split('\n').map((line, index) => (
+              <p>{line}</p>
+          ))}
+        </address>
+        <div class="border-t border-gray-200 pt-4">
+            <button class="w-full bg-brand-600 text-white py-2 rounded-full font-semibold hover:bg-brand-700 transition duration-300">
+                {buttonText}
+            </button>
+        </div>
     </div>
-
-    <!-- Action Buttons -->
-    <div class="absolute top-4 right-4 flex gap-2">
-      <button class="bg-white/90 hover:bg-white w-8 h-8 rounded-full flex items-center justify-center text-brand transition-colors duration-300">
-        <i class="ri-image-line"></i>
-      </button>
-      <button class="bg-white/90 hover:bg-white w-8 h-8 rounded-full flex items-center justify-center text-brand transition-colors duration-300">
-        <i class="ri-heart-line"></i>
-      </button>
-      <button class="bg-white/90 hover:bg-white w-8 h-8 rounded-full flex items-center justify-center text-brand transition-colors duration-300">
-        <i class="ri-share-line"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- Content -->
-  <div class="p-6">
-    <h3 class="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-    <div class="flex items-center text-gray-600 mb-4">
-      <i class="ri-map-pin-line mr-2 text-brand text-xl"></i>
-      <span>{location}</span>
-    </div>
-
-    <div class="flex items-center justify-between mb-4">
-      <span class="text-black text-2xl font-bold">${price.toLocaleString()}</span>
-      <span class="text-gray-600">{type}</span>
-    </div>
-
-    <div class="flex items-center justify-between text-gray-600 border-t pt-4">
-      <div class="flex items-center gap-1">
-        <i class="ri-hotel-bed-line text-brand text-xl"></i>
-        <span>{beds} beds</span>
-      </div>
-      <div class="flex items-center gap-1">
-        <i class="ri-contrast-drop-line text-brand text-xl"></i>
-        <span>{baths} baths</span>
-      </div>
-      <div class="flex items-center gap-1">
-        <i class="ri-ruler-line text-brand text-xl"></i>
-        <span>{area} sq ft</span>
-      </div>
-    </div>
-  </div>
 </div>

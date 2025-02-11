@@ -4,50 +4,94 @@ import temp2 from '@images/properties/temp2.jpeg';
 
 
 const filters = [
-  { label: 'All', active: true },
-  { label: 'For Rent', active: false },
-  { label: 'For Sale', active: false },
+  { label: 'Todo', active: true },
+  { label: 'Renta', active: false },
+  { label: 'Venta', active: false },
 ];
 
 const properties = [
   {
-    image: temp2,
-    title: "Villa in Tokyo site",
-    location: "Tokyo Street, Park, FL 4525, Japan",
+    imageSrc: temp2,
+    imageAlt: "Departamento en Monte Magno",
+    saleType: "Venta",
     price: 420000,
-    type: "Villa",
-    beds: 4,
-    baths: 2,
-    area: 24000,
-    status: 'For Sale',
-    tags: ["Trendy"]
+    currency: "MXN",
+    bedrooms: 4,
+    bathrooms: 2,
+    area: 240,
+    address: {
+      street: "Lisboa",
+      extNumber: "11",
+      intNumber: "",
+      neighborhood: "Col. Residencial Monte Magno",
+      zipCode: 12345,
+      city: "Cuernavaca",
+      state: "Morelos",
+      country: "México",
+    },
   },
   {
-    image: temp2,
-    title: "Home in Malaysia",
-    location: "Colounpore Bridge, FL 4574 Malaysia",
+    imageSrc: temp2,
+    imageAlt: "Casa en Bosque Real",
+    saleType: "Renta",
     price: 780000,
-    type: "Home",
-    beds: 4,
-    baths: 2,
-    area: 24000,
-    status: 'For Rent',
-    tags: ["Featured"]
+    currency: "MXN",
+    bedrooms: 5,
+    bathrooms: 3,
+    area: 320,
+    address: {
+      street: "Av. Bosque Real",
+      extNumber: "45",
+      intNumber: "A",
+      neighborhood: "Col. Bosque Residencial",
+      zipCode: 54321,
+      city: "Ciudad de México",
+      state: "CDMX",
+      country: "México",
+    },
   },
   {
-    image: temp2,
-    title: "Home in Bancok",
-    location: "Bancok street, FL 4524 Thailand",
-    price: 120000,
-    type: "Home",
-    beds: 4,
-    baths: 2,
-    area: 24000,
-    status: 'For Sale'
-  }
+    imageSrc: temp2,
+    imageAlt: "Casa en Lomas de Chapultepec",
+    saleType: "Venta",
+    price: 1200000,
+    currency: "MXN",
+    bedrooms: 6,
+    bathrooms: 4,
+    area: 500,
+    address: {
+      street: "Paseo de la Reforma",
+      extNumber: "1200",
+      intNumber: "",
+      neighborhood: "Lomas de Chapultepec",
+      zipCode: 11000,
+      city: "Ciudad de México",
+      state: "CDMX",
+      country: "México",
+    },
+  },
+  {
+    imageSrc: temp2,
+    imageAlt: "Penthouse en Polanco",
+    saleType: "Venta",
+    price: 3500000,
+    currency: "MXN",
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 280,
+    address: {
+      street: "Av. Presidente Masaryk",
+      extNumber: "456",
+      intNumber: "PH",
+      neighborhood: "Polanco",
+      zipCode: 11560,
+      city: "Ciudad de México",
+      state: "CDMX",
+      country: "México",
+    },
+  },
 ];
 ---
-
 <section class="py-16 px-4">
   <div class="max-w-7xl mx-auto">
     <!-- Filters -->
@@ -67,8 +111,8 @@ const properties = [
 
     <!-- Header -->
     <div class="mb-12">
-      <h2 class="text-4xl font-bold text-gray-900 mb-2">Discover Latest Properties</h2>
-      <p class="text-gray-600">Newest Properties Around You</p>
+      <h2 class="text-4xl font-bold text-gray-900 mb-2">Propiedades destacadas</h2>
+      <p class="text-gray-600">Tu siguiente propiedad se encuentra aquí.</p>
     </div>
 
     <!-- Properties Grid -->

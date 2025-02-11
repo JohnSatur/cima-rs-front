@@ -1,0 +1,47 @@
+---
+interface Props {
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  landArea?: number;
+  floors?: number;
+}
+
+const { bedrooms, bathrooms, area, landArea, floors } = Astro.props;
+---
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 my-8">
+  <div class="flex items-center gap-3">
+    <i class="ri-home-2-fill text-3xl mr-1 text-brand-300 drop-shadow-sm"></i>
+    <div>
+      <p class="text-sm text-gray-600">Habitaciones</p>
+      <p class="font-semibold">{bedrooms}</p>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <i class="ri-drop-fill text-3xl mr-1 text-brand-300 drop-shadow-sm"></i>
+    <div>
+      <p class="text-sm text-gray-600">Baños</p>
+      <p class="font-semibold">{bathrooms}</p>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <i class="ri-grid-fill text-3xl mr-1 text-brand-300 drop-shadow-sm"></i>
+    <div>
+      <p class="text-sm text-gray-600">Construcción</p>
+      <p class="font-semibold">{area} m²</p>
+    </div>
+  </div>
+
+  {landArea && (
+    <div class="flex items-center gap-3">
+      <i class="ri-map-2-line text-3xl mr-1 text-brand-300 drop-shadow-sm"></i>
+      <div>
+        <p class="text-sm text-gray-600">Terreno</p>
+        <p class="font-semibold">{landArea} m²</p>
+      </div>
+    </div>
+  )}
+</div>

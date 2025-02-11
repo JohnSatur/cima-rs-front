@@ -1,6 +1,7 @@
 ---
 import Footer from "@components/layout/Footer.astro";
 import Header from "@components/layout/Header.astro";
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -14,16 +15,18 @@ import Header from "@components/layout/Header.astro";
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-		<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+		<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet" />
 		<!-- SwiperJS -->
 		<link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
+
+		<ClientRouter />
 	</head>
 	<body class="bg-white font-body">
 		<Header />
-		<main class="max-w-[1920px] mx-auto">
+		<main class="max-w-[1920px] mx-auto pt-[92px]">
 			<slot />
 		</main>
 		<Footer />

@@ -1,0 +1,41 @@
+---
+import claudia from "@images/claudia-1.jpg";
+import luisa from "@images/luisa-1.jpg";
+import { Image } from "astro:assets";
+
+const team = [
+  {
+    name: "Claudia Elena de la Luna Toribio",
+    role: "Agente de bienes raíces",
+    image: claudia,
+    description: "15 años de experiencia en el sector inmobiliario"
+  },
+  {
+    name: "María Luisa Casasa Watty",
+    role: "Agente de bienes raíces",
+    image: luisa,
+    description: "Especialista en derecho inmobiliario"
+  }
+];
+---
+
+<section id="equipo" class="py-20">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Nuestro Equipo</h2>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      {team.map(member => (
+        <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+          <Image
+            src={member.image}
+            alt={member.name}
+            class="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+          />
+          <h3 class="text-xl font-semibold mb-2">{member.name}</h3>
+          <p class="text-primary font-medium mb-2">{member.role}</p>
+          <p class="text-gray-600">{member.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

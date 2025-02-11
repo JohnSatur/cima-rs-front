@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+
+import hero from '@images/about-hero.jpg';
+---
+
+<section class="relative h-[80vh] flex items-center justify-center">
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    <Image
+      src={hero}
+      alt="Claudia y Luisa"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-black/50"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6">¿Quiénes Somos?</h1>
+    <p class="text-xl md:text-2xl mb-8 leading-relaxed">
+      Expertas en bienes raíces, asesoría legal y gestión de créditos para hacer realidad tu sueño de tener un hogar.
+    </p>
+    <a
+      href="/contact"
+      class="inline-block bg-brand hover:bg-brand-600 text-white font-semibold px-8 py-4 rounded-lg transition-colors text-lg"
+    >
+      Contáctanos
+    </a>
+  </div>
+</section>

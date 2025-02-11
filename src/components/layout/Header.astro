@@ -2,13 +2,23 @@
 import { Image } from "astro:assets";
 import logo from '@images/logo.png';
 
+// Ruta actual
+const currentPath = Astro.url.pathname;
+
 const menuItems = [
-  { text: "Comprar", href: "#", active: true },
-  { text: "Rentar", href: "#", active: false },
-  { text: "Quiénes Somos", href: "#", active: false },
-  { text: "Contactar un agente", href: "#", active: false },
-  { text: "Blog", href: "#", active: false },
+  { text: "Inicio", href: "/" },
+  { text: "Propiedades", href: "/properties" },
+  // { text: "Rentar", href: "/properties", active: false },
+  { text: "Quiénes Somos", href: "/about" },
+  { text: "Contactar un agente", href: "/contact" },
+  { text: "Blog", href: "/blog" },
 ];
+
+// Añadir 'isActive' a los elementos del menu
+const menuItemsWithActive = menuItems.map(item => ({
+  ...item,
+  isActive: currentPath === item.href
+}))
 ---
 
 <header class="fixed top-0 left-0 right-0 bg-white py-4 px-6 z-50 shadow-md">
@@ -20,9 +30,9 @@ const menuItems = [
 
     <!-- Navigation Links -->
     <nav class="hidden xl:flex items-center space-x-8">
-      {menuItems.map(item => (
+      {menuItemsWithActive.map(item => (
         <a href={item.href} class={`text-sm font-semibold rounded-full transition-colors duration-150
-            ${ item.active  ?
+            ${ item.isActive  ?
              'bg-brandlight text-brand rounded-full px-4 py-2' :
              'text-gray-600 hover:text-black'
           }`}
@@ -37,9 +47,11 @@ const menuItems = [
       <!-- Social Icons -->
       <div class="flex items-center space-x-4">
         <a href="https://www.instagram.com/cima_bienesraices_/" target="_blank" rel="noopener noreferrer" class="text-brand hover:scale-125 text-2xl transition-transform duration-125">
+          <span class="sr-only">Instagram</span>
           <i class="ri-instagram-line"></i>
         </a>
         <a href="https://www.facebook.com/CIMABienesRaicesyConstruccion" target="_blank" rel="noopener noreferrer" class="text-brand hover:scale-125 text-2xl transition-transform duration-125">
+          <span class="sr-only">Facebook</span>
           <i class="ri-facebook-line"></i>
         </a>
       </div>
@@ -78,9 +90,9 @@ const menuItems = [
 
       <!-- Mobile Navigation -->
       <nav class="flex flex-col space-y-6 mb-8">
-        {menuItems.map(item => (
+        {menuItemsWithActive.map(item => (
           <a href={item.href} class={`text-lg font-semibold transition-colors duration-150
-              ${ item.active ? 'text-brand' : 'text-gray-600 hover:text-black' }`}
+              ${ item.isActive ? 'text-brand' : 'text-gray-600 hover:text-black' }`}
           >
             { item.text }
           </a>

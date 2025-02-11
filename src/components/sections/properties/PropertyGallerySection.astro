@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  images: ImageMetadata[];
+  isFeatured?: boolean;
+}
+
+const { images, isFeatured = false } = Astro.props;
+---
+
+<div class="relative">
+  <!-- Swiper container -->
+  <div class="swiper-container h-[500px] rounded-lg overflow-hidden">
+    <div class="swiper-wrapper">
+      {images.map((image) => (
+        <div class="swiper-slide">
+          <Image src={image} alt="Property" class="w-full h-full object-cover" />
+        </div>
+      ))}
+    </div>
+    <!-- Paginación y botones de navegación dentro del contenedor -->
+    <div class="swiper-pagination"></div>
+    <!-- <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div> -->
+  </div>
+
+  {isFeatured && (
+    <div class="absolute z-10 top-4 right-4 bg-yellow-500 text-white px-4 py-2 rounded-full font-semibold shadow-lg">
+      Destacada
+    </div>
+  )}
+</div>
+
+<script>
+  import Swiper from 'swiper';
+  import { Pagination, Autoplay } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+  import 'swiper/css/pagination';
+
+  new Swiper('.swiper-container', {
+    modules: [Pagination, Autoplay],
+    loop: true,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+    },
+    speed: 3000,
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    allowTouchMove: false,
+    simulateTouch: false,
+    grabCursor: false,
+    // navigation: {
+    //   nextEl: '.swiper-button-next',
+    //   prevEl: '.swiper-button-prev',
+    // },
+  });
+</script>
