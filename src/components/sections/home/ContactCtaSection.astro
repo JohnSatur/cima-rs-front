@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import Button from '@components/ui/Button.astro';
+
+import mainHouse from '@images/properties/temp1.jpeg';
+---
+
+<section class="relative h-[70vh]">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0">
+    <Image src={ mainHouse } alt="Modern living room" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/50"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative h-full flex flex-col items-center justify-center text-center px-4">
+    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 max-w-4xl">Tu próxima propiedad te está esperando</h2>
+    <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl">Encuentra la propiedad perfecta para ti en CIMA Bienes Raíces. Nuestro equipo de expertos te ayudará a encontrar la propiedad ideal que se ajuste a tus necesidades.</p>
+    <Button text="Contacta a un agente" link="/contact" icon="ri-arrow-right-line" />
+  </div>
+</section>

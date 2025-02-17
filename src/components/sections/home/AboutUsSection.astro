@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+import temp5 from '@images/properties/temp5.jpeg';
+
+---
+
+<section class="max-w-7xl mx-auto py-20 px-4">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- Content Column -->
+      <div class="space-y-8">
+          <div class="space-y-4">
+              <h2 class="text-3xl md:text-4xl font-bold leading-tight">
+                  15 años transformando vidas
+              </h2>
+              <p class="text-gray-600">CIMA Bienes Raíces es una empresa de bienes raíces que se dedica a la venta, arriendo y compra de propiedades. Nuestra misión es ayudar a nuestros clientes a encontrar la propiedad perfecta para sus necesidades.</p>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 gap-8">
+              <!-- Stat 1 -->
+              <div>
+                  <div class="text-3xl md:text-4xl font-bold mb-2">+1,000</div>
+                  <p class="text-gray-600">Propiedades vendidas</p>
+              </div>
+
+              <!-- Stat 2 -->
+              <div>
+                  <div class="text-3xl md:text-4xl font-bold mb-2">15</div>
+                  <p class="text-gray-600">Años de experiencia</p>
+              </div>
+
+              <!-- Stat 3 -->
+              <div>
+                  <div class="text-3xl md:text-4xl font-bold mb-2">+5,000</div>
+                  <p class="text-gray-600">Clientes satisfechos</p>
+              </div>
+
+              <!-- Stat 4 -->
+              <div>
+                  <div class="text-3xl md:text-4xl font-bold mb-2">890</div>
+                  <p class="text-gray-600">Tratos cerrados</p>
+              </div>
+          </div>
+      </div>
+
+      <!-- Image Column -->
+      <div class="relative">
+          <div class="rounded-2xl overflow-hidden">
+              <Image src={ temp5 } alt="Modern living room" class="w-full h-full object-cover" />
+          </div>
+      </div>
+  </div>
+</section>

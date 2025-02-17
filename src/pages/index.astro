@@ -1,172 +1,22 @@
 ---
-import Image from 'astro/components/Image.astro';
-
 import MainLayout from '@layouts/MainLayout.astro';
-import HeroSection from '@/components/sections/home/HeroSection.astro';
-import SearchForm from '@/components/sections/home/SearchForm.astro';
-import Button from '@/components/ui/Button.astro';
-import LocationCard from '@/components/ui/LocationCard.astro';
 
-import mainHouse from '@images/properties/temp1.jpeg';
-import temp2 from '@images/properties/temp2.jpeg';
-import temp3 from '@images/properties/temp3.jpeg';
-import temp4 from '@images/properties/temp4.jpeg';
-import temp5 from '@images/properties/temp5.jpeg';
-import temp6 from '@images/properties/temp6.jpeg';
-import CitiesSection from '@/components/sections/home/CitiesSection.astro';
-import FeaturedProperties from '@/components/sections/home/FeaturedProperties.astro';
+import HeroSection from '@components/sections/home/HeroSection.astro';
+import SearchForm from '@components/shared/SearchForm.astro';
+import CitiesSection from '@components/sections/home/CitiesSection.astro';
+import ValuePropositionSection from '@components/sections/home/ValuePropositionSection.astro';
+import FeaturedPropertiesSection from '@components/sections/home/FeaturedPropertiesSection.astro';
+import AboutUsSection from '@components/sections/home/AboutUsSection.astro';
+import FeaturedPostsSection from '@components/sections/home/FeaturedPostsSection.astro';
+import ContactCtaSection from '@components/sections/home/ContactCtaSection.astro';
 ---
-
 <MainLayout>
 	<HeroSection />
-
 	<SearchForm />
-
 	<CitiesSection />
-
-	<section class="py-20 px-4 bg-brand-100">
-    <div class="max-w-7xl mx-auto">
-			<h2 class="text-3xl font-bold text-center mb-2">¿Por qué CIMA Bienes Raíces?</h2>
-    <p class="text-gray-600 text-center mb-16">¿Qué nos hace especiales?</p>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-        <div class="flex flex-col items-center text-center">
-						<i class="text-brand ri-file-list-3-fill text-7xl mb-6"></i>
-            <h3 class="text-xl font-bold mb-3">Amplio rango de propiedades</h3>
-            <p class="text-gray-600">Contamos con una amplia variedad de propiedades para satisfacer tus necesidades.</p>
-        </div>
-
-        <div class="flex flex-col items-center text-center">
-						<i class="text-brand ri-home-9-fill text-7xl mb-6"></i>
-
-            <h3 class="text-xl font-bold mb-3">Compra, renta y vende</h3>
-            <p class="text-gray-600">Te ayudamos a comprar, rentar o vender tu propiedad al mejor precio del mercado.</p>
-        </div>
-
-        <div class="flex flex-col items-center text-center">
-						<i class="text-brand ri-shield-star-fill text-7xl mb-6"></i>
-
-            <h3 class="text-xl font-bold mb-3">Confiado por miles de clientes</h3>
-            <p class="text-gray-600">Nuestra cartera de clientes respalda la calidad de nuestro servicio.</p>
-        </div>
-    </div>
-
-    <!-- Sign In Banner -->
-    <div class="bg-brand-800 rounded-lg p-8 text-white flex flex-col md:flex-row justify-between items-center">
-      <div>
-        <h3 class="text-2xl font-bold mb-2">Regístrate para obtener mejores recomendaciones</h3>
-        <p class="text-brand-100">Crea tu cuenta. Es gratis y solo toma unos minutos.</p>
-      </div>
-      <Button text="Inicia sesión o crea tu cuenta" link="/register" icon="ri-arrow-right-line" />
-    </div>
-		</div>
-	</section>
-
-	<FeaturedProperties />
-
-	<section class="relative h-[70vh]">
-		<!-- Background Image with Overlay -->
-		<div class="absolute inset-0">
-			<Image src={ mainHouse } alt="Modern living room" class="w-full h-full object-cover" />
-			<div class="absolute inset-0 bg-black/50"></div>
-		</div>
-
-		<!-- Content -->
-		<div class="relative h-full flex flex-col items-center justify-center text-center px-4">
-			<h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 max-w-4xl">Tu próxima propiedad te está esperando</h2>
-			<p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl">Encuentra la propiedad perfecta para ti en CIMA Bienes Raíces. Nuestro equipo de expertos te ayudará a encontrar la propiedad ideal que se ajuste a tus necesidades.</p>
-			<Button text="Contacta a un agente" link="/contact" icon="ri-arrow-right-line" />
-		</div>
-	</section>
-
-	<section class="max-w-7xl mx-auto py-20 px-4">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <!-- Content Column -->
-        <div class="space-y-8">
-            <div class="space-y-4">
-                <h2 class="text-3xl md:text-4xl font-bold leading-tight">
-                    15 años transformando vidas
-                </h2>
-                <p class="text-gray-600">CIMA Bienes Raíces es una empresa de bienes raíces que se dedica a la venta, arriendo y compra de propiedades. Nuestra misión es ayudar a nuestros clientes a encontrar la propiedad perfecta para sus necesidades.</p>
-            </div>
-
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 gap-8">
-                <!-- Stat 1 -->
-                <div>
-                    <div class="text-3xl md:text-4xl font-bold mb-2">+1,000</div>
-                    <p class="text-gray-600">Propiedades vendidas</p>
-                </div>
-
-                <!-- Stat 2 -->
-                <div>
-                    <div class="text-3xl md:text-4xl font-bold mb-2">15</div>
-                    <p class="text-gray-600">Años de experiencia</p>
-                </div>
-
-                <!-- Stat 3 -->
-                <div>
-                    <div class="text-3xl md:text-4xl font-bold mb-2">+5,000</div>
-                    <p class="text-gray-600">Clientes satisfechos</p>
-                </div>
-
-                <!-- Stat 4 -->
-                <div>
-                    <div class="text-3xl md:text-4xl font-bold mb-2">890</div>
-                    <p class="text-gray-600">Tratos cerrados</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Image Column -->
-        <div class="relative">
-            <div class="rounded-2xl overflow-hidden">
-                <Image src={ temp5 } alt="Modern living room" class="w-full h-full object-cover" />
-            </div>
-        </div>
-    </div>
-	</section>
-
-	<section class="max-w-7xl mx-auto py-20 px-4">
-    <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Últimos Artículos</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">Mantente actualizado con las últimas tendencias y noticias del mercado inmobiliario a través de nuestro blog.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        <!-- Article 1 -->
-        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
-            <img src="/placeholder.svg?height=200&width=400" alt="Imagen del artículo 1" class="w-full h-48 object-cover">
-            <div class="p-6">
-                <h3 class="font-bold text-xl mb-2">Cómo elegir la mejor ubicación para tu hogar</h3>
-                <p class="text-gray-600 mb-4">Descubre los factores clave que debes considerar al elegir la ubicación de tu próxima casa.</p>
-                <a href="#" class="text-blue-600 hover:underline">Leer más</a>
-            </div>
-        </div>
-
-        <!-- Article 2 -->
-        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
-            <img src="/placeholder.svg?height=200&width=400" alt="Imagen del artículo 2" class="w-full h-48 object-cover">
-            <div class="p-6">
-                <h3 class="font-bold text-xl mb-2">Tendencias de diseño interior para 2024</h3>
-                <p class="text-gray-600 mb-4">Explora las últimas tendencias en diseño interior que darán vida a tu hogar este año.</p>
-                <a href="#" class="text-blue-600 hover:underline">Leer más</a>
-            </div>
-        </div>
-
-        <!-- Article 3 -->
-        <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
-            <img src="/placeholder.svg?height=200&width=400" alt="Imagen del artículo 3" class="w-full h-48 object-cover">
-            <div class="p-6">
-                <h3 class="font-bold text-xl mb-2">Guía para invertir en propiedades comerciales</h3>
-                <p class="text-gray-600 mb-4">Aprende los aspectos fundamentales para invertir exitosamente en el mercado de propiedades comerciales.</p>
-                <a href="#" class="text-blue-600 hover:underline">Leer más</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="text-center">
-			<Button text="Ir al blog" link="/blog" icon="ri-arrow-right-line" />
-    </div>
-	</section>
+	<ValuePropositionSection />
+	<FeaturedPropertiesSection />
+  <AboutUsSection />
+  <FeaturedPostsSection />
+  <ContactCtaSection />
 </MainLayout>
