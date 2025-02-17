@@ -70,10 +70,9 @@ const property = {
 ---
 
 <MainLayout title="Detalles de propiedad">
+  <!-- Gallery Section -->
+  <PropertyGallerySection images={property.images} isFeatured={property.isFeatured} />
   <main class="max-w-7xl mx-auto px-4 py-8">
-    <!-- Gallery Section -->
-    <PropertyGallerySection images={property.images} isFeatured={property.isFeatured} />
-
     <!-- Basic Information -->
     <div class="mt-8">
       <div class="flex justify-between items-start">
@@ -112,38 +111,78 @@ const property = {
     </div>
 
     <!-- Contact Section -->
-    <div class="mt-12 grid md:grid-cols-2 gap-8">
-      <ContactFormSection />
+    I'll redesign the contact form and agent information section with a background image and a dark overlay to improve visibility. I'll use HTML and TailwindCSS without React, as requested. Here's an improved version of your component:
+
+```html
+<!-- Contact Section -->
+<div class="mt-12 relative bg-cover bg-center py-16">
+  <div class="relative z-10 container mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Contact Form -->
+      <form class="space-y-6 bg-white bg-opacity-90 p-8 rounded-lg shadow-xl backdrop-blur-sm">
+        <h3 class="text-3xl font-bold mb-6 text-gray-800">Contactar agente</h3>
+        
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input type="text" id="name" name="name" required 
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand">
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+          <input type="email" id="email" name="email" required 
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand">
+        </div>
+
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700">Teléfono</label>
+          <input type="tel" id="phone" name="phone" required 
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand">
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700">Mensaje</label>
+          <textarea id="message" name="message" rows="4" required
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand"></textarea>
+        </div>
+
+        <button type="submit" 
+                class="w-full bg-brand-500 hover:bg-brand-600 text-white py-3 px-6 rounded-lg transition-colors duration-300 ease-in-out transform hover:scale-105">
+          Enviar mensaje
+        </button>
+      </form>
       
       <!-- Agent Information -->
-      <div class="bg-white p-8 rounded-lg shadow-lg">
+      <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-xl backdrop-blur-sm">
         <div class="flex items-center gap-4 mb-6">
           <Image
             src={property.agent.photo}
             alt={property.agent.name}
-            class="w-16 h-16 rounded-full object-cover"
+            class="w-48 h-48 rounded-full object-cover border-4 border-brand-500 shadow-lg"
           />
           <div>
-            <h3 class="text-xl font-semibold">{property.agent.name}</h3>
-            <p class="text-gray-600">Agente Inmobiliario</p>
+            <h3 class="text-2xl font-bold text-gray-800">{property.agent.name}</h3>
+            <p class="text-brand-600 font-semibold">Agente Inmobiliario</p>
           </div>
         </div>
         <div class="space-y-4">
-          <p class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand" viewBox="0 0 20 20" fill="currentColor">
+          <p class="flex items-center gap-3 text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-500" viewBox="0 0 20 20" fill="currentColor">
               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
             </svg>
-            {property.agent.phone}
+            <span class="text-lg">{property.agent.phone}</span>
           </p>
-          <p class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand" viewBox="0 0 20 20" fill="currentColor">
+          <p class="flex items-center gap-3 text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-500" viewBox="0 0 20 20" fill="currentColor">
               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
               <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
             </svg>
-            {property.agent.email}
+            <span class="text-lg">{property.agent.email}</span>
           </p>
         </div>
       </div>
     </div>
+  </div>
+</div>
   </main>
 </MainLayout>

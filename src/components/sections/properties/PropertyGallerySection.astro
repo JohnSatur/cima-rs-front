@@ -11,7 +11,7 @@ const { images, isFeatured = false } = Astro.props;
 
 <div class="relative">
   <!-- Swiper container -->
-  <div class="swiper-container h-[500px] rounded-lg overflow-hidden">
+  <div class="swiper-container h-[65vh] rounded-lg overflow-hidden">
     <div class="swiper-wrapper">
       {images.map((image) => (
         <div class="swiper-slide">
@@ -19,10 +19,8 @@ const { images, isFeatured = false } = Astro.props;
         </div>
       ))}
     </div>
-    <!-- Paginación y botones de navegación dentro del contenedor -->
+    <!-- Paginación -->
     <div class="swiper-pagination"></div>
-    <!-- <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div> -->
   </div>
 
   {isFeatured && (
@@ -36,7 +34,6 @@ const { images, isFeatured = false } = Astro.props;
   import Swiper from 'swiper';
   import { Pagination, Autoplay } from 'swiper/modules';
   import 'swiper/css';
-  import 'swiper/css/navigation';
   import 'swiper/css/pagination';
 
   new Swiper('.swiper-container', {
@@ -53,9 +50,5 @@ const { images, isFeatured = false } = Astro.props;
     allowTouchMove: false,
     simulateTouch: false,
     grabCursor: false,
-    // navigation: {
-    //   nextEl: '.swiper-button-next',
-    //   prevEl: '.swiper-button-prev',
-    // },
   });
 </script>
