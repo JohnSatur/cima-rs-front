@@ -2,10 +2,41 @@
 import { Image } from 'astro:assets';
 
 import Button from '@components/ui/Button.astro';
+import BlogPostCard from '@components/shared/BlogPostCard.astro';
 
 import temp2 from '@images/properties/temp2.jpeg';
 import temp3 from '@images/properties/temp3.jpeg';
 import temp4 from '@images/properties/temp4.jpeg';
+
+import luisaHeadshot from '@images/luisa-1.jpg';
+import claudiaHeadshot from '@images/claudia-1.jpg';
+
+const articles = [
+  {
+    title: 'Artículo de ejemplo',
+    href: '/blog/post-1',
+    image: temp3,
+    category: 'Tecnología',
+    excerpt: 'Este es un pequeño extracto del artículo...',
+    author: {
+      name: 'Luisa',
+      image: luisaHeadshot
+    },
+    date: '17 de febrero de 2025'
+  },
+  {
+    title: 'Artículo de ejemplo 2',
+    href: '/blog/post-2',
+    image: temp4,
+    category: 'Tecnología',
+    excerpt: 'Este es un pequeño extracto del artículo...',
+    author: {
+      name: 'Claudia de la Luna',
+      image: claudiaHeadshot
+    },
+    date: '17 de febrero de 2025'
+  },
+];
 ---
 <section class="max-w-7xl mx-auto py-20 px-4">
   <div class="text-center mb-12">
@@ -14,35 +45,9 @@ import temp4 from '@images/properties/temp4.jpeg';
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-      <!-- Article 1 -->
-      <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
-          <Image src={temp4} alt="Imagen del artículo 1" class="w-full h-48 object-cover" />
-          <div class="p-6">
-              <h3 class="font-bold text-xl mb-2">Cómo elegir la mejor ubicación para tu hogar</h3>
-              <p class="text-gray-600 mb-4">Descubre los factores clave que debes considerar al elegir la ubicación de tu próxima casa.</p>
-              <a href="#" class="text-blue-600 hover:underline">Leer más</a>
-          </div>
-      </div>
-
-      <!-- Article 2 -->
-      <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
-          <Image src={temp2} alt="Imagen del artículo 2" class="w-full h-48 object-cover" />
-          <div class="p-6">
-              <h3 class="font-bold text-xl mb-2">Tendencias de diseño interior para 2024</h3>
-              <p class="text-gray-600 mb-4">Explora las últimas tendencias en diseño interior que darán vida a tu hogar este año.</p>
-              <a href="#" class="text-blue-600 hover:underline">Leer más</a>
-          </div>
-      </div>
-
-      <!-- Article 3 -->
-      <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
-          <Image src={temp3} alt="Imagen del artículo 3" class="w-full h-48 object-cover" />
-          <div class="p-6">
-              <h3 class="font-bold text-xl mb-2">Guía para invertir en propiedades comerciales</h3>
-              <p class="text-gray-600 mb-4">Aprende los aspectos fundamentales para invertir exitosamente en el mercado de propiedades comerciales.</p>
-              <a href="#" class="text-blue-600 hover:underline">Leer más</a>
-          </div>
-      </div>
+      {articles.map(article => (
+        <BlogPostCard post={article} />
+      ))}
   </div>
 
   <div class="text-center">

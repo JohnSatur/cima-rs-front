@@ -6,7 +6,7 @@ const posts = await getCollection('posts');
 const authors = await getCollection('authors');
 ---
 
-<MainLayout title="Blog">
+<MainLayout title="Blog - CIMA Bienes Raíces">
   <h1>Blog</h1>
   {posts.map((post) => post.data.title)}
 </MainLayout>
