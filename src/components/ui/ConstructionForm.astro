@@ -139,7 +139,7 @@ if (Astro.request.method === 'POST') {
     if (cleanedData.dealType) cleanedData.dealType = cleanedData.dealType.toLowerCase();
     if (cleanedData.constructionType) cleanedData.constructionType = cleanedData.constructionType.toLowerCase();
 
-    console.log(JSON.stringify(cleanedData));
+    // console.log(JSON.stringify(cleanedData));
 
     // Enviar datos al backend
     const response = await fetch('http://localhost:3000/api/v1/properties/constructions', {

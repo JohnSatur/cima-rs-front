@@ -1,0 +1,208 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+
+import heroImg from '@images/about-hero.jpg';
+
+import house1 from '@images/properties/temp6.jpeg';
+import house2 from '@images/properties/temp5.jpeg';
+---
+
+<MainLayout title="Privacidad">
+  <main class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <div class="relative h-[400px] md:h-[600px]">
+      <Image
+        src={heroImg}
+        alt="CIMA Bienes Raíces"
+        class="w-full h-full object-cover brightness-50"
+      />
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="text-center text-white">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            Aviso de Privacidad
+          </h1>
+          <p class="text-xl">CIMA BIENES RAICES – CONSTRUCCIÓN</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="overflow-hidden">
+        <div class="p-6 sm:p-8 space-y-8 text-secondary">
+          <!-- Introducción -->
+          <div class="space-y-6">
+            <p class="text-justify leading-relaxed">
+              CIMA BIENES RAICES – CONSTRUCCIÓN, con domicilio ubicado en la
+              calle Magnolias esquina con Araucarias número #38 colonia Jardines
+              de las Ánimas, en la ciudad de Xalapa de Enríquez, Veracruz. en
+              cumplimiento con lo dispuesto por la Ley Federal de Protección de
+              Datos Personales en Posesión de los Particulares y su Reglamento,
+              es responsable del tratamiento de sus datos personales y garantiza
+              su protección conforme a lo establecido en la legislación vigente.
+            </p>
+
+            <div class="relative h-[400px] rounded-xl overflow-hidden my-8">
+              <Image
+                src={house1}
+                alt="Protección de datos"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <p class="text-justify leading-relaxed">
+              Con fines de brindarle nuestros servicios personalizados a sus
+              necesidades y de calidad, CIMA BIENES RAICES – CONSTRUCCIÓN podrá
+              recabar, tratar y resguardar los siguientes datos personales:
+              Nombre Completo, Número Telefónico, Ubicación Geográfica y Correo
+              Electrónico.
+            </p>
+
+            <p class="text-justify leading-relaxed">
+              Estos datos podrán ser obtenidos directamente a través de nuestra
+              página web, formularios de contacto, redes sociales, llamadas
+              telefónicas o cualquier otro medio electrónico autorizado por la
+              empresa.
+            </p>
+          </div>
+
+          <!-- Finalidades -->
+          <div class="bg-gray-50 p-8 rounded-xl space-y-4">
+            <h2 class="text-2xl font-semibold text-primary">
+              Finalidades del Tratamiento
+            </h2>
+            <p class="font-medium">
+              Los datos personales recabados serán utilizados con las siguientes
+              finalidades principales:
+            </p>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>
+                Brindarle información sobre nuestros servicios inmobiliarios,
+                promociones y disponibilidad de propiedades.
+              </li>
+              <li>Atender sus consultas y solicitudes de contacto.</li>
+              <li>Agendar visitas y citas comerciales.</li>
+              <li>
+                Enviar notificaciones sobre actualizaciones, cambios o nuevos
+                servicios.
+              </li>
+              <li>Mantener un registro de clientes y prospectos.</li>
+            </ul>
+          </div>
+
+          <div class="relative h-[400px] rounded-xl overflow-hidden my-8">
+            <Image
+              src={house2}
+              alt="Seguridad de datos"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <p class="text-justify leading-relaxed">
+            En caso de requerir sus datos para fines adicionales no contemplados
+            en este aviso, le solicitaremos su consentimiento expreso antes de
+            su tratamiento.
+          </p>
+
+          <!-- Compartir Datos -->
+          <div class="space-y-4">
+            <h2 class="text-2xl font-semibold text-primary">
+              Compartir Datos con Terceros
+            </h2>
+            <p class="text-justify leading-relaxed">
+              En cumplimiento del debido resguardo y trato de datos personales
+              se hace del conocimiento que cualquier dato recabado por la
+              empresa a través de cualquier medio NO SERÁ COMPARTIDO CON
+              TERCEROS salvo los casos siguiente:
+            </p>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>
+                Cuando sea requerido por una autoridad competente en
+                cumplimiento de la legislación aplicable o;
+              </li>
+              <li>
+                Cuando se necesite compartir con aliados comerciales, asesores
+                legales o proveedores de servicios necesarios para el
+                cumplimiento de nuestras obligaciones contractuales, en cuyo
+                caso garantizamos que se mantendrán bajo estricta
+                confidencialidad.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Derechos ARCO -->
+          <div class="bg-primary/5 p-8 rounded-xl space-y-6">
+            <h2 class="text-2xl font-semibold text-primary">Derechos ARCO</h2>
+            <p class="leading-relaxed">
+              Como titular de sus datos personales, tiene derecho a acceder,
+              rectificar, cancelar u oponerse (Derechos ARCO) al tratamiento de
+              sus datos.
+            </p>
+            <p class="leading-relaxed">
+              Para ejercer estos derechos, podrá enviar una solicitud al correo
+              electrónico [Correo de contacto] con el asunto "Ejercicio de
+              Derechos ARCO", proporcionando la siguiente información:
+            </p>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>Nombre completo del titular de los datos.</li>
+              <li>Copia de una identificación oficial.</li>
+              <li>
+                Descripción clara y precisa del derecho que desea ejercer.
+              </li>
+              <li>Medio de contacto para responder a su solicitud.</li>
+            </ul>
+          </div>
+
+          <p class="text-justify leading-relaxed">
+            Daremos respuesta a su solicitud en un plazo razonable de acuerdo a
+            nuestras posibilidades de agenda.
+          </p>
+
+          <!-- Cookies -->
+          <div class="space-y-4">
+            <h2 class="text-2xl font-semibold text-primary">Uso de Cookies</h2>
+            <p class="text-justify leading-relaxed">
+              Nuestra página web puede utilizar herramientas como cookies, web
+              beacons y tecnologías similares para mejorar la experiencia del
+              usuario. Estas herramientas pueden recopilar información sobre su
+              navegación y preferencias. Usted puede deshabilitar el uso de
+              cookies desde la configuración de su navegador, aunque esto podría
+              afectar el funcionamiento óptimo del sitio.
+            </p>
+          </div>
+
+          <p class="text-justify leading-relaxed">
+            CIMA BIENES RAICES – CONSTRUCCIÓN se reserva el derecho de modificar
+            este aviso de privacidad en cualquier momento. Cualquier cambio será
+            publicado en nuestra página web [URL de la página web], por lo que
+            recomendamos revisar esta sección periódicamente.
+          </p>
+
+          <!-- Información de Contacto -->
+          <div class="bg-gray-50 p-8 rounded-xl space-y-6">
+            <h2 class="text-2xl font-semibold text-primary">
+              Información de Contacto
+            </h2>
+            <div class="space-y-4">
+              <p class="flex items-center">
+                <span class="mr-3 text-2xl">📧</span>
+                <span>Correo electrónico: [Correo de contacto]</span>
+              </p>
+              <p class="flex items-start">
+                <span class="mr-3 text-2xl">📍</span>
+                <span
+                  >Dirección: Magnolias esquina con Araucarias número #38
+                  colonia Jardines de las Ánimas, C.P. 91196, Xalapa, Ver.</span
+                >
+              </p>
+              <p class="flex items-center">
+                <span class="mr-3 text-2xl">📞</span>
+                <span>Teléfono: +52 228 122 9452</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</MainLayout>

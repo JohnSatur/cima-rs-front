@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --font-title: 'Crimson Pro' serif;
+  --font-body: 'Montserrat' sans-serif;
+
+  --color-brand: #FFBB1D;
+
+  --color-brand-100: #F5EAD2;
+  --color-brand-200: #EAD4A5;
+  --color-brand-300: #DFC078;
+  --color-brand-400: #D3AA66;
+  --color-brand-500: #BD9D55;
+  --color-brand-600: #9F8344;
+  --color-brand-700: #826A36;
+  --color-brand-800: #665227;
+  --color-brand-900: #493916;
+  --color-brandlight: #FDF6E7,
+
+  --container-center: true;
+  --container-padding: 1rem;
+  --container-padding-md: 2rem;
+}

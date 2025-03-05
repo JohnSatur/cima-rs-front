@@ -1,12 +1,14 @@
 ---
-import MainLayout from "@/layouts/MainLayout.astro";
-import { getCollection } from "astro:content";
+import MainLayout from '@/layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+
+import { Image } from 'astro:assets';
+import LatestPostsSection from '@components/sections/blog/LatestPostsSection.astro';
 
 const posts = await getCollection('posts');
 const authors = await getCollection('authors');
----
 
+---
 <MainLayout title="Blog - CIMA Bienes Raíces">
-  <h1>Blog</h1>
-  {posts.map((post) => post.data.title)}
+  <LatestPostsSection {posts} {authors} />
 </MainLayout>

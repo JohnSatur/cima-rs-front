@@ -35,12 +35,12 @@ const {
     bathrooms,
     area,
     address,
-    buttonText = "Ver detalles",
+    buttonText = 'Ver detalles',
 } = Astro.props;
 
 const formattedAddress = `${address.street} ${address.extNumber}${address.intNumber ? ` Int. ${address.intNumber}` : ''}, ${address.neighborhood}, ${address.city}, ${address.state}, ${address.country}, CP ${address.zipCode}`;
 
-const tagColor = saleType === "Venta" ? "bg-blue-500" : "bg-green-500";
+const tagColor = saleType === 'Venta' ? 'bg-blue-500' : 'bg-green-500';
 ---
 
 <div class="rounded-lg overflow-hidden bg-white shadow-lg">

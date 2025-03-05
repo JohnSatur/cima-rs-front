@@ -1,4 +1,5 @@
 ---
+import "../styles/global.css";
 import Footer from '@components/layout/Footer.astro';
 import Header from '@components/layout/Header.astro';
 // TODO: Investigar porqué las transiciones de Astro generan error en botón desplegable de Header
@@ -25,7 +26,7 @@ const SWIPER_JS_URL: string = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bun
 		<link href={ SWIPER_CSS_URL } rel="stylesheet" />
 		<!-- <ClientRouter /> -->
 	</head>
-	<body class="bg-white font-body">
+	<body class="bg-white">
 		<Header />
 		<main class="max-w-[1920px] mx-auto pt-[92px]">
 			<slot />

@@ -2,20 +2,21 @@ import { glob } from 'astro/loaders';
 import { defineCollection, reference, z } from 'astro:content';
 
 const postsCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: "./src/content/posts" }),
-  schema: z.object({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
+  schema: ({ image }) =>z.object({
     title: z.string(),
     description: z.string(),
     pubDate: z.date(),
     author: reference('authors'),
-    image: z.string().optional(),
+    slug: z.string(),
+    image: image().optional(),
     tags: z.array(z.string()).optional(),
     relatedPosts: z.array(reference('posts')).optional(),
   }),
 });
 
 const authorsCollection = defineCollection({
-  loader: glob({ pattern: '**/*.json', base: "./src/content/authors" }),
+  loader: glob({ pattern: '**/*.json', base: './src/content/authors' }),
   schema: ({ image }) => z.object({
     name: z.string(),
     bio: z.string(),

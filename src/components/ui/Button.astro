@@ -8,7 +8,7 @@ interface Props {
 const { text, link, icon } = Astro.props;
 ---
 
-<a href={ link } class="bg-brand text-white text-lg font-semibold px-8 py-4 rounded-md hover:bg-brandlight hover:text-brand transition-colors duration-150">
+<a href={ link } class="bg-brand text-white text-lg font-semibold px-8 py-4 rounded-md hover:bg-brand-100 hover:text-brand transition-colors duration-150">
   { text }
   { <i class={ `ml-2 ${ icon || 'hidden' }` }></i> }
 </a>
