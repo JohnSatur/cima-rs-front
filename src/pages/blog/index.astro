@@ -4,11 +4,26 @@ import { getCollection } from 'astro:content';
 
 import { Image } from 'astro:assets';
 import LatestPostsSection from '@components/sections/blog/LatestPostsSection.astro';
+import heroImg from '@images/contact-bg.jpg';
 
 const posts = await getCollection('posts');
 const authors = await getCollection('authors');
 
 ---
 <MainLayout title="Blog - CIMA Bienes Raíces">
+  <div class="relative h-[400px] md:h-[600px]">
+    <Image 
+      src={heroImg}
+      alt="CIMA Bienes Raíces" 
+      class="w-full h-full object-cover brightness-50"
+    />
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-center text-white">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Nuestro Blog</h1>
+        <p class="text-xl">Conoce las últimas tendencias en el mundo de las bienes raíces</p>
+      </div>
+    </div>
+  </div>
+
   <LatestPostsSection {posts} {authors} />
 </MainLayout>
