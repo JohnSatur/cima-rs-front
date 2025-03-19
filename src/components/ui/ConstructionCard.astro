@@ -1,0 +1,62 @@
+---
+import type { PropertyResponse } from '@/types/property';
+
+
+interface Props {
+  property: PropertyResponse;
+  currency?: string;
+  buttonText?: string;
+}
+
+const {
+  property,
+  currency = 'MXN',
+  buttonText = 'Ver más'
+} = Astro.props;
+---
+<div class="rounded-lg overflow-hidden bg-white shadow-lg">
+  <div class="relative">
+    <Image src={imageSrc} alt={imageAlt} class="w-full h-64 object-cover" />
+    <!-- Etiqueta dinámica -->
+    <div class={`absolute top-4 left-4 ${tagColor} text-white px-4 py-2 rounded-full text-xs font-semibold uppercase`}>
+      {property.data.dealType === 'venta' ? 'Venta' : 'Renta'}
+    </div>
+  </div>
+  <div class="p-6">
+    <div class="flex justify-between items-baseline mb-4">
+      <h2 class="text-3xl font-bold text-gray-800">
+        {property.data.price.toLocaleString('es-MX', { style: 'currency', currency })}
+      </h2>
+      <span class="text-sm text-gray-500 font-medium">{currency}</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <div class="flex gap-4 text-gray-600">
+        {property.data.rooms && (
+          <span class="flex items-center text-sm font-medium">
+            <i class="ri-home-2-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {property.data.rooms}
+          </span>
+        )}
+        {property.data.bathrooms && (
+          <span class="flex items-center text-sm font-medium">
+            <i class="ri-drop-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {property.data.bathrooms}
+          </span>
+        )}
+        {property.data.builtArea && (
+          <span class="flex items-center text-sm font-medium">
+            <i class="ri-grid-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {property.data.builtArea} M²
+          </span>
+        )}
+      </div>
+    </div>
+    <address class="text-gray-600 my-4 not-italic">
+      {formattedAddress.split('\n').map((line, index) => (
+        <p>{line}</p>
+      ))}
+    </address>
+    <div class="border-t border-gray-200 pt-4">
+      <button class="w-full bg-brand-600 text-white py-2 rounded-full font-semibold hover:bg-brand-700 transition duration-300">
+        {buttonText}
+      </button>
+    </div>
+  </div>
+</div>

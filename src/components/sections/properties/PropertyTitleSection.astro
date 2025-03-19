@@ -1,0 +1,22 @@
+---
+import type { ConstructionType } from '@/types/construction.enum';
+import { capitalizeFirstLetter } from '@utils/string';
+
+interface Props {
+  constructionType: ConstructionType;
+  neighborhood?: string;
+  price: number;
+}
+
+const { constructionType, neighborhood, price } = Astro.props;
+---
+
+<div>
+  <h1 class="text-3xl font-bold text-gray-900">
+    {capitalizeFirstLetter(constructionType)}
+    {neighborhood && ` en ${neighborhood}`}
+  </h1>
+  <p class="text-7xl font-bold mt-2 text-green-700">
+    ${new Intl.NumberFormat('es-MX').format(price)} MXN
+  </p>
+</div>

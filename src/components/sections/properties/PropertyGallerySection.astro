@@ -1,31 +1,38 @@
 ---
 import { Image } from 'astro:assets';
+import noImagesPlaceholder from '@images/no-images.jpg';
 
 interface Props {
-  images: ImageMetadata[];
+  images?: string[];
   isFeatured?: boolean;
 }
 
-const { images, isFeatured = false } = Astro.props;
+const { images = [], isFeatured = false } = Astro.props;
 ---
 
 <div class="relative">
-  <!-- Swiper container -->
-  <div class="swiper-container h-[65vh] rounded-lg overflow-hidden">
-    <div class="swiper-wrapper">
-      {images.map((image) => (
-        <div class="swiper-slide">
-          <Image src={image} alt="Property" class="w-full h-full object-cover" />
-        </div>
-      ))}
-    </div>
-    <!-- Paginación -->
-    <div class="swiper-pagination"></div>
-  </div>
+  {images.length > 0 ? (
+    <div class="swiper-container h-[65vh] rounded-lg overflow-hidden">
+      <div class="swiper-wrapper">
+        {images.map((image) => (    
+          <div class="swiper-slide">
+            <Image src={image} alt="Property" class="w-full h-full object-cover" width={1920} height={600} />
+          </div>
+        ))}
+      </div>
+      <!-- Paginación -->
+      <div class="swiper-pagination"></div>
 
-  {isFeatured && (
-    <div class="absolute z-10 top-4 right-4 bg-yellow-500 text-white px-4 py-2 rounded-full font-semibold shadow-lg">
-      Destacada
+    </div>
+  ) : (
+    <div class="h-[65vh] rounded-lg overflow-hidden">
+      <Image
+        src={noImagesPlaceholder}
+        alt="No hay imágenes disponibles"
+        class="w-full h-full object-cover"
+        width={1920}
+        height={600}
+      />
     </div>
   )}
 </div>

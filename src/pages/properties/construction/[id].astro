@@ -1,0 +1,55 @@
+---
+import ConstructionFeaturesSection from "@components/sections/properties/ConstructionFeaturesSection.astro";
+import LocationMapSection from "@components/sections/properties/LocationMapSection.astro";
+import PropertyGallerySection from "@components/sections/properties/PropertyGallerySection.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import type { ConstructionResponse } from "@/types/property";
+import PropertyEquipmentSection from "@/components/sections/properties/PropertyEquipmentSection.astro";
+import PropertyTitleSection from "@/components/sections/properties/PropertyTitleSection.astro";
+
+import { DealType } from '@/types/construction.enum';
+
+import { capitalizeFirstLetter } from '@utils/string';
+
+const { id } = Astro.params;
+
+const response = await fetch(`http://localhost:3000/api/v1/properties/${id}`);
+const constructionResponse: ConstructionResponse = await response.json();
+
+if (!constructionResponse) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not Found'
+  });
+}
+
+const construction = constructionResponse.data;
+---
+
+<MainLayout title={`Propiedad en ${construction.address.neighborhood}`}>
+  <PropertyGallerySection images={construction.images} />
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+
+    <div class="mt-8">
+      <div class="flex justify-between items-start">
+        <PropertyTitleSection constructionType={construction.constructionType} neighborhood={construction.address.neighborhood} price={construction.price} />
+        <span class={`px-4 py-2 rounded-full font-semibold ${
+          construction.dealType === DealType.VENTA ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+        }`}>
+          {capitalizeFirstLetter(construction.dealType)}
+        </span>
+      </div>
+      <p class="mt-4 text-gray-600">{construction.description}</p>
+    </div>
+
+    <!-- Features -->
+    <ConstructionFeaturesSection rooms={construction.rooms} bathrooms={construction.bathrooms} builtArea={construction.builtArea} landArea={construction.landArea} floors={construction.floors}   />
+
+    <!-- Location -->
+    <LocationMapSection lat={construction.location.latitude} lng={construction.location.longitude} />
+
+    <!-- Equipment -->
+    <PropertyEquipmentSection equipment={construction.equipment} />
+  </main>
+</MainLayout>

@@ -1,15 +1,13 @@
 ---
 interface Props {
-  coordinates: {
-      lat: number;
-      lng: number;
-  }
+    lat?: number;
+    lng?: number;
 }
 
-const { coordinates } = Astro.props;
+const { lat, lng } = Astro.props;
 
 // Construye la URL del mapa de Google Maps
-const mapUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3760.8848604728073!2d-96.85161108830444!3d19.503588881715032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85db33c70f05c96d%3A0x29d30708cce796b5!2sFraccionamiento%20Morada%20del%20Quetzal!5e0!3m2!1ses!2smx!4v1739253853464!5m2!1ses!2smx`;
+const mapUrl = lat && lng ? `https://www.google.com/maps/?q=${lat},${lng}&z=17&output=embed` : '';
 ---
 
 <section class="py-12">

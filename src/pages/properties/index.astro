@@ -1,6 +1,6 @@
 ---
 import ConstructionForm from "@/components/ui/ConstructionForm.astro";
-import PropertyCard from "@/components/ui/PropertyCard.astro";
+// import PropertyCard from "@/components/ui/PropertyCard.astro";
 import MainLayout from "@/layouts/MainLayout.astro";
 
 import temp2 from '@images/properties/temp2.jpeg';
@@ -163,9 +163,10 @@ const properties = [
         <!-- Listado de propiedades -->
         <div class="md:w-3/4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {properties.map(property => (
+                <!-- {properties.map(property => (
+                  
                   <PropertyCard {...property} />
-                ))}
+                ))} -->
             </div>
 
             <!-- Paginación -->

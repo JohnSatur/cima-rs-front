@@ -1,6 +1,7 @@
 ---
-import PropertyCard from '@components/ui/PropertyCard.astro';
+import ConstructionCard from '@components/ui/ConstructionCard.astro';
 import temp2 from '@images/properties/temp2.jpeg';
+import { isConstruction, type PropertyResponse } from '@/types/property';
 
 
 const filters = [
@@ -71,7 +72,11 @@ const properties = [
     },
   }
 ];
+
+const response = await fetch('http://localhost:3000/api/v1/properties/67d3a5ae712a1618999ac18f');
+const propertyResponse: PropertyResponse = await response.json();
 ---
+
 <section class="py-16 px-4">
   <div class="max-w-7xl mx-auto">
     <!-- Filters -->
@@ -97,9 +102,13 @@ const properties = [
 
     <!-- Properties Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {properties.map(property => (
+      <!-- {properties.map(property => (
+       
         <PropertyCard {...property} />
-      ))}
+      ))} -->
+
+      <!-- TODO: Debe haber una tarjeta para construcciones y una para terrenos. Hay que hacer que el back entregue una construcción y que empate con la interfaz de Construcción en el front -->
+      <!-- <ConstructionCard property={propertyResponse} /> -->
     </div>
 
     <!-- Pagination -->

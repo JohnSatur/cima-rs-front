@@ -1,0 +1,47 @@
+---
+import LandFeaturesSection from '@/components/sections/properties/LandFeaturesSection.astro';
+import PropertyGallerySection from '@/components/sections/properties/PropertyGallerySection.astro';
+import MainLayout from '@/layouts/MainLayout.astro';
+import type { LandResponse } from '@/types/property';
+
+const { id } = Astro.params;
+
+const response = await fetch(`http://localhost:3000/api/v1/properties/${id}`);
+const landResponse: LandResponse = await response.json();
+
+if (!landResponse) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not Found'
+  });
+}
+
+const land = landResponse.data;
+---
+
+<MainLayout title={`Propiedad en ${land.address.neighborhood}`}>
+  <PropertyGallerySection images={land.images} />
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+
+    <div class="mt-8">
+      <div class="flex justify-between items-start">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">{`Terreno en ${land.address.neighborhood}`}</h1>
+          <p class="text-7xl font-bold mt-2 text-green-700">
+            ${new Intl.NumberFormat('es-MX').format(land.price)} MXN
+          </p>
+        </div>
+        <span class={`px-4 py-2 rounded-full font-semibold ${
+          land.dealType === 'venta' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+        }`}>
+          {land.dealType}
+        </span>
+      </div>
+      <p class="mt-4 text-gray-600">{land.description}</p>
+    </div>
+
+    <!-- Features -->
+    <LandFeaturesSection landArea={land.landArea} landUse={land.landUse} landOccupationCoefficient={land.landOccupationCoefficient} landType={land.landType} topography={land.topography} />
+  </main>
+</MainLayout>

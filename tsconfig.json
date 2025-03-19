@@ -9,8 +9,8 @@
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@images/*": ["src/assets/img/*"],
-      "@enums/*": ["src/enums/*"],
       "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"]
     }
   },
   "include": [".astro/types.d.ts", "**/*"],
