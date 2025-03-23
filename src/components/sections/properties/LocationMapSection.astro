@@ -12,17 +12,21 @@ const mapUrl = lat && lng ? `https://www.google.com/maps/?q=${lat},${lng}&z=17&o
 
 <section class="py-12">
   <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-semibold mb-8 text-center">Ubicación aproximada</h2>
-    <div class="aspect-w-16 aspect-h-9">
-      <iframe
-        src={mapUrl}
-        width="100%"
-        height="450"
-        style="border:0;"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
-    </div>
+    { lat && lng ? (
+      <h2 class="text-3xl font-semibold mb-8 text-center">Ubicación aproximada</h2>
+      <div class="aspect-w-16 aspect-h-9">
+        <iframe
+          src={mapUrl}
+          width="100%"
+          height="450"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    ) : (
+      <h2 class="text-3xl font-semibold mb-8 text-center">Ubicación No disponible</h2>
+    )}
   </div>
 </section>
