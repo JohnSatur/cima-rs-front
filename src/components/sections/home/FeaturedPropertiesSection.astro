@@ -1,8 +1,7 @@
 ---
-import ConstructionCard from '@components/ui/ConstructionCard.astro';
-import temp2 from '@images/properties/temp2.jpeg';
-import { isConstruction, type PropertyResponse } from '@/types/property';
-
+import ConstructionCard from "@/components/ui/ConstructionCard.astro";
+import type { PropertyResponse } from "@/types/api.interface";
+import { PropertyType } from "@/types/construction.enum";
 
 const filters = [
   { label: 'Todo', active: true },
@@ -10,73 +9,9 @@ const filters = [
   { label: 'Venta', active: false },
 ];
 
-const properties = [
-  {
-    imageSrc: temp2,
-    imageAlt: "Departamento en Monte Magno",
-    saleType: "Venta",
-    price: 420000,
-    currency: "MXN",
-    bedrooms: 4,
-    bathrooms: 2,
-    area: 240,
-    address: {
-      street: "Lisboa",
-      extNumber: "11",
-      intNumber: "",
-      neighborhood: "Col. Residencial Monte Magno",
-      zipCode: 12345,
-      city: "Cuernavaca",
-      state: "Morelos",
-      country: "México",
-    },
-  },
-  {
-    imageSrc: temp2,
-    imageAlt: "Casa en Bosque Real",
-    saleType: "Renta",
-    price: 780000,
-    currency: "MXN",
-    bedrooms: 5,
-    bathrooms: 3,
-    area: 320,
-    address: {
-      street: "Av. Bosque Real",
-      extNumber: "45",
-      intNumber: "A",
-      neighborhood: "Col. Bosque Residencial",
-      zipCode: 54321,
-      city: "Ciudad de México",
-      state: "CDMX",
-      country: "México",
-    },
-  },
-  {
-    imageSrc: temp2,
-    imageAlt: "Casa en Lomas de Chapultepec",
-    saleType: "Venta",
-    price: 1200000,
-    currency: "MXN",
-    bedrooms: 6,
-    bathrooms: 4,
-    area: 500,
-    address: {
-      street: "Paseo de la Reforma",
-      extNumber: "1200",
-      intNumber: "",
-      neighborhood: "Lomas de Chapultepec",
-      zipCode: 11000,
-      city: "Ciudad de México",
-      state: "CDMX",
-      country: "México",
-    },
-  }
-];
-
-const response = await fetch('http://localhost:3000/api/v1/properties/67d3a5ae712a1618999ac18f');
-const propertyResponse: PropertyResponse = await response.json();
+const response = await fetch('http://localhost:3000/api/v1/properties/filter?featured=true');
+const { properties }: { properties: PropertyResponse[] } = await response.json();
 ---
-
 <section class="py-16 px-4">
   <div class="max-w-7xl mx-auto">
     <!-- Filters -->
@@ -102,13 +37,9 @@ const propertyResponse: PropertyResponse = await response.json();
 
     <!-- Properties Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- {properties.map(property => (
-       
-        <PropertyCard {...property} />
-      ))} -->
-
-      <!-- TODO: Debe haber una tarjeta para construcciones y una para terrenos. Hay que hacer que el back entregue una construcción y que empate con la interfaz de Construcción en el front -->
-      <!-- <ConstructionCard property={propertyResponse} /> -->
+      {properties.map((property: PropertyResponse) => (
+        property.type === PropertyType.CONSTRUCTION && <ConstructionCard data={property.data} currency="MXN" />
+      ))}
     </div>
 
     <!-- Pagination -->

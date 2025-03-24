@@ -1,7 +1,6 @@
 ---
 // Layouts
 import MainLayout from '@layouts/MainLayout.astro';
-import { Image } from 'astro:assets';
 
 // Components
 import ContactFormSection from '@/components/sections/properties/ContactFormSection.astro';
@@ -13,7 +12,7 @@ import PropertyTitleSection from '@/components/sections/properties/PropertyTitle
 import AgentCard from '@/components/sections/properties/AgentCard.astro';
 
 // Types
-import type { ConstructionResponse } from '@/types/property';
+import type { ConstructionResponse } from '@/types/api.interface';
 import { DealType } from '@/types/construction.enum';
 
 // Utils

@@ -56,16 +56,6 @@ export interface Construction extends BaseProperty {
 
 export type Property = Land | Construction;
 
-export type ConstructionResponse = {
-  type: PropertyType.CONSTRUCTION;
-  data: Construction;
-}
-
-export type LandResponse = {
-  type: PropertyType.LAND;
-  data: Land;
-}
-
 export const isLand = (property: Property): property is Land => {
   return property.propertyType === PropertyType.LAND;
 }

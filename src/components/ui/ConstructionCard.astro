@@ -1,49 +1,75 @@
 ---
-import type { PropertyResponse } from '@/types/property';
+import type { Construction } from '@/types/property';
+import { Image } from 'astro:assets';
+import noImagesPlaceholder from '@images/no-images.jpg';
+import { DealType } from '@/types/construction.enum';
 
 
 interface Props {
-  property: PropertyResponse;
-  currency?: string;
-  buttonText?: string;
+  data: Construction;
+  currency: string;
 }
 
-const {
-  property,
-  currency = 'MXN',
-  buttonText = 'Ver más'
-} = Astro.props;
+const { data, currency = 'MXN' } = Astro.props;
+
+const formattedAddress = [
+  data.address.neighborhood || '',
+  data.address.zipCode ? `C.P. ${data.address.zipCode}` : '',
+  data.address.city || '',
+  data.address.state || '',
+  data.address.country || ''
+].filter(Boolean).join(', ');
+
+const tagColor = data.dealType === DealType.VENTA ? "bg-blue-500" : "bg-green-500";
 ---
+
 <div class="rounded-lg overflow-hidden bg-white shadow-lg">
-  <div class="relative">
-    <Image src={imageSrc} alt={imageAlt} class="w-full h-64 object-cover" />
+  <div class="relative h-64">
+    {data.coverImage ? (
+      <Image 
+        src={data.coverImage} 
+        width={450}
+        height={256}
+        alt={`Propiedad en ${data.address.neighborhood}`} 
+        class="w-full h-64 object-cover"
+      />
+    ) : (
+    <Image
+        src={noImagesPlaceholder}
+        alt={`Propiedad en ${data.address.neighborhood} (No hay imagen)`}
+        class="w-full h-full object-cover"
+        width={450}
+        height={256}
+      />
+    )}
     <!-- Etiqueta dinámica -->
     <div class={`absolute top-4 left-4 ${tagColor} text-white px-4 py-2 rounded-full text-xs font-semibold uppercase`}>
-      {property.data.dealType === 'venta' ? 'Venta' : 'Renta'}
+      {data.dealType === DealType.VENTA ? 'Venta' : 'Renta'}
     </div>
   </div>
   <div class="p-6">
     <div class="flex justify-between items-baseline mb-4">
       <h2 class="text-3xl font-bold text-gray-800">
-        {property.data.price.toLocaleString('es-MX', { style: 'currency', currency })}
+        {data.price.toLocaleString('es-MX', { style: 'currency', currency })}
       </h2>
-      <span class="text-sm text-gray-500 font-medium">{currency}</span>
+      <!-- <span class="text-sm text-gray-500 font-medium">{currency}</span> -->
+      <span class="text-sm text-gray-500 font-medium">MXN</span>
     </div>
     <div class="flex justify-between items-center">
       <div class="flex gap-4 text-gray-600">
-        {property.data.rooms && (
+        {data.rooms && (
           <span class="flex items-center text-sm font-medium">
-            <i class="ri-home-2-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {property.data.rooms}
+            <i class="ri-home-2-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {data.rooms}
           </span>
         )}
-        {property.data.bathrooms && (
+        {data.bathrooms && (
           <span class="flex items-center text-sm font-medium">
-            <i class="ri-drop-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {property.data.bathrooms}
+            <i class="ri-drop-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {data.bathrooms}
           </span>
         )}
-        {property.data.builtArea && (
+        {data.builtArea && (
           <span class="flex items-center text-sm font-medium">
-            <i class="ri-grid-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {property.data.builtArea} M²
+            <i class="ri-grid-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {data.builtArea} M²
           </span>
         )}
       </div>
@@ -54,9 +80,9 @@ const {
       ))}
     </address>
     <div class="border-t border-gray-200 pt-4">
-      <button class="w-full bg-brand-600 text-white py-2 rounded-full font-semibold hover:bg-brand-700 transition duration-300">
-        {buttonText}
-      </button>
+      <a href={`/properties/construction/${data._id}`} class="w-full inline-block text-center bg-brand-600 text-white py-2 rounded-full font-semibold hover:bg-brand-700 transition duration-300">
+        Ver más
+      </a>
     </div>
   </div>
 </div>
