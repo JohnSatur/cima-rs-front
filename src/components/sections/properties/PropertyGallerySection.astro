@@ -5,10 +5,12 @@ import noImagesPlaceholder from '@images/no-images.jpg';
 interface Props {
   images?: string[];
   isFeatured?: boolean;
+  coverImage?: string;
 }
 
-const { images = [] } = Astro.props;
+const { images = [], coverImage, isFeatured = false } = Astro.props;
 ---
+<!-- TODO: Agregar el coverImage en el hero y hacer una galería abajo para las fotos -->
 
 <div class="relative">
   {images.length > 0 ? (

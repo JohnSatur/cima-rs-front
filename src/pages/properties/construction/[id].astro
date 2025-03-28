@@ -36,7 +36,7 @@ const construction = constructionResponse.data;
 ---
 
 <MainLayout title={`Propiedad en ${construction.address.neighborhood}`}>
-  <PropertyGallerySection images={construction.images} />
+  <PropertyGallerySection coverImage={construction.coverImage} images={construction.images} />
 
   <main class="max-w-7xl mx-auto px-4 py-8">
     <div class="mt-8">

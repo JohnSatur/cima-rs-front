@@ -6,10 +6,10 @@ interface Props {
 
 const { lat, lng } = Astro.props;
 
-// Construye la URL del mapa de Google Maps
 const mapUrl = lat && lng ? `https://www.google.com/maps/?q=${lat},${lng}&z=17&output=embed` : '';
----
 
+console.log(mapUrl);
+---
 <section class="py-12">
   <div class="container mx-auto px-4">
     { lat && lng ? (
