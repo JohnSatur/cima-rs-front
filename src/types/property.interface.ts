@@ -1,5 +1,5 @@
-import type { ConstructionType, DealType, LandType, LandUse, Topography } from './construction.enum';
-import { PropertyType } from './construction.enum';
+import type { ConstructionType, DealType, LandType, LandUse, Topography } from './property.enum';
+import { PropertyType } from './property.enum';
 
 interface Address {
   neighborhood?: string;

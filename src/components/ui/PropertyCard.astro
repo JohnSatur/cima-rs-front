@@ -1,8 +1,8 @@
 ---
-import type { Property } from "@/types/property";
+import type { Property } from "@/types/property.interface";
 import { Image } from 'astro:assets';
 import noImagesPlaceholder from '@images/no-images.jpg';
-import { DealType } from '@/types/construction.enum';
+import { DealType, PropertyType } from '@/types/property.enum';
 
 interface Props {
   data: Property;
@@ -22,8 +22,7 @@ const formattedAddress = [
 const tagColor = data.dealType === DealType.VENTA ? "bg-blue-500" : "bg-green-500";
 
 // Determinar si es un terreno o construcción
-const isLand = data.propertyType === 'Land';
-console.log(data.price);
+const isLand = data.propertyType === PropertyType.LAND;
 ---
 
 <div class="rounded-lg overflow-hidden bg-white shadow-lg">

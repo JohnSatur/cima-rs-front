@@ -1,5 +1,5 @@
-import type { Construction, Land } from "./property";
-import { PropertyType } from './construction.enum';
+import type { Construction, Land } from "./property.interface";
+import { PropertyType } from './property.enum';
 
 export interface ApiResponse {
   properties: PropertyResponse[];
