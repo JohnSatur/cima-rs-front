@@ -1,195 +1,195 @@
 ---
 import ConstructionForm from "@/components/ui/ConstructionForm.astro";
-// import PropertyCard from "@/components/ui/PropertyCard.astro";
+import PropertyCard from "@/components/ui/PropertyCard.astro";
 import MainLayout from "@/layouts/MainLayout.astro";
+import type { Pagination, PropertyResponse } from "@/types/api.interface";
 
-import temp2 from '@images/properties/temp2.jpeg';
+import temp2 from "@images/properties/temp2.jpeg";
 
-const properties = [
-  {
-    imageSrc: temp2,
-    imageAlt: "Departamento en Monte Magno",
-    saleType: "Venta",
-    price: 420000,
-    currency: "MXN",
-    bedrooms: 4,
-    bathrooms: 2,
-    area: 240,
-    address: {
-      street: "Lisboa",
-      extNumber: "11",
-      intNumber: "",
-      neighborhood: "Col. Residencial Monte Magno",
-      zipCode: 12345,
-      city: "Cuernavaca",
-      state: "Morelos",
-      country: "México",
-    },
-  },
-  {
-    imageSrc: temp2,
-    imageAlt: "Casa en Bosque Real",
-    saleType: "Renta",
-    price: 780000,
-    currency: "MXN",
-    bedrooms: 5,
-    bathrooms: 3,
-    area: 320,
-    address: {
-      street: "Av. Bosque Real",
-      extNumber: "45",
-      intNumber: "A",
-      neighborhood: "Col. Bosque Residencial",
-      zipCode: 54321,
-      city: "Ciudad de México",
-      state: "CDMX",
-      country: "México",
-    },
-  },
-  {
-    imageSrc: temp2,
-    imageAlt: "Casa en Lomas de Chapultepec",
-    saleType: "Venta",
-    price: 1200000,
-    currency: "MXN",
-    bedrooms: 6,
-    bathrooms: 4,
-    area: 500,
-    address: {
-      street: "Paseo de la Reforma",
-      extNumber: "1200",
-      intNumber: "",
-      neighborhood: "Lomas de Chapultepec",
-      zipCode: 11000,
-      city: "Ciudad de México",
-      state: "CDMX",
-      country: "México",
-    },
-  },
-  {
-    imageSrc: temp2,
-    imageAlt: "Penthouse en Polanco",
-    saleType: "Venta",
-    price: 3500000,
-    currency: "MXN",
-    bedrooms: 3,
-    bathrooms: 3,
-    area: 280,
-    address: {
-      street: "Av. Presidente Masaryk",
-      extNumber: "456",
-      intNumber: "PH",
-      neighborhood: "Polanco",
-      zipCode: 11560,
-      city: "Ciudad de México",
-      state: "CDMX",
-      country: "México",
-    },
-  },
-];
+// Obtener parámetros de la URL
+const page = Number(Astro.url.searchParams.get('page')) || 1;
+const limit = Number(Astro.url.searchParams.get('limit')) || 10;
+
+// Hacer la petición al backend
+const response = await fetch(
+  `http://localhost:3000/api/v1/properties?page=${page}&limit=${limit}`
+);
+const data = await response.json();
+
+const { properties, pagination }:{ properties: PropertyResponse[], pagination: Pagination } = data;
 ---
 
 <MainLayout title="Propiedades">
   <main class="max-w-7xl mx-auto px-4 py-8">
     <div class="flex flex-col md:flex-row gap-8">
-        <div class="md:w-1/4">
-          <div class="bg-white p-6 rounded-lg shadow-md">
-              <h2 class="text-xl font-semibold mb-4 text-gray-800">Filtros</h2>
-              <form>
-                  <!-- Ciudad -->
-                  <div class="mb-4">
-                      <label for="city" class="block text-sm font-medium text-gray-700 mb-2">Ciudad</label>
-                      <select id="city" class="w-full p-2 border rounded focus:ring-2 focus:ring-brand focus:border-brand">
-                          <option>Xalapa</option>
-                          <option>Puebla</option>
-                          <option>Veracruz</option>
-                          <option>Guadalajara</option>
-                      </select>
-                  </div>
-      
-                  <!-- Precio (Range) -->
-                  <div class="mb-4">
-                      <label for="price" class="block text-sm font-medium text-gray-700 mb-2">Precio</label>
-                      <input type="range" id="price" min="1000000" max="17000000" class="w-full h-2 bg-brand-100 rounded-lg appearance-none cursor-pointer">
-                      <div class="flex justify-between text-sm text-gray-600">
-                          <span>$1,000,000</span>
-                          <span>$17,000,000</span>
-                      </div>
-                  </div>
-      
-                  <!-- M² de terreno (Range) -->
-                  <div class="mb-4">
-                      <label for="land-area" class="block text-sm font-medium text-gray-700 mb-2">M² de terreno</label>
-                      <input type="range" id="land-area" min="100" max="1000" class="w-full h-2 bg-brand-100 rounded-lg appearance-none cursor-pointer">
-                      <div class="flex justify-between text-sm text-gray-600">
-                          <span>100 m²</span>
-                          <span>1000 m²</span>
-                      </div>
-                  </div>
-      
-                  <!-- M² de construcción (Range) -->
-                  <div class="mb-4">
-                      <label for="construction-area" class="block text-sm font-medium text-gray-700 mb-2">M² de construcción</label>
-                      <input type="range" id="construction-area" min="100" max="1000" class="w-full h-2 bg-brand-100 rounded-lg appearance-none cursor-pointer">
-                      <div class="flex justify-between text-sm text-gray-600">
-                          <span>100 m²</span>
-                          <span>1000 m²</span>
-                      </div>
-                  </div>
-      
-                  <!-- Tipo de trato (Venta o Renta) -->
-                  <div class="mb-4">
-                      <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de trato</label>
-                      <div class="flex gap-4">
-                          <label class="flex items-center">
-                              <input type="radio" name="deal-type" class="form-radio text-brand focus:ring-brand">
-                              <span class="ml-2">Venta</span>
-                          </label>
-                          <label class="flex items-center">
-                              <input type="radio" name="deal-type" class="form-radio text-brand focus:ring-brand">
-                              <span class="ml-2">Renta</span>
-                          </label>
-                      </div>
-                  </div>
-      
-                  <!-- Botón de aplicar filtros -->
-                  <button type="submit" class="w-full bg-brand text-white px-4 py-2 rounded hover:bg-brand-600 transition duration-300">
-                      Aplicar filtros
-                  </button>
-              </form>
-          </div>
+      <div class="md:w-1/4">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Filtros</h2>
+          <form>
+            <!-- Ciudad -->
+            <div class="mb-4">
+              <label
+                for="city"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >Ciudad</label
+              >
+              <select
+                id="city"
+                class="w-full p-2 border rounded focus:ring-2 focus:ring-brand focus:border-brand"
+              >
+                <option>Xalapa</option>
+                <option>Puebla</option>
+                <option>Veracruz</option>
+                <option>Guadalajara</option>
+              </select>
+            </div>
+
+            <!-- Precio (Range) -->
+            <div class="mb-4">
+              <label
+                for="price"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >Precio</label
+              >
+              <input
+                type="range"
+                id="price"
+                min="1000000"
+                max="17000000"
+                class="w-full h-2 bg-brand-100 rounded-lg appearance-none cursor-pointer"
+              />
+              <div class="flex justify-between text-sm text-gray-600">
+                <span>$1,000,000</span>
+                <span>$17,000,000</span>
+              </div>
+            </div>
+
+            <!-- M² de terreno (Range) -->
+            <div class="mb-4">
+              <label
+                for="land-area"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >M² de terreno</label
+              >
+              <input
+                type="range"
+                id="land-area"
+                min="100"
+                max="1000"
+                class="w-full h-2 bg-brand-100 rounded-lg appearance-none cursor-pointer"
+              />
+              <div class="flex justify-between text-sm text-gray-600">
+                <span>100 m²</span>
+                <span>1000 m²</span>
+              </div>
+            </div>
+
+            <!-- M² de construcción (Range) -->
+            <div class="mb-4">
+              <label
+                for="construction-area"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >M² de construcción</label
+              >
+              <input
+                type="range"
+                id="construction-area"
+                min="100"
+                max="1000"
+                class="w-full h-2 bg-brand-100 rounded-lg appearance-none cursor-pointer"
+              />
+              <div class="flex justify-between text-sm text-gray-600">
+                <span>100 m²</span>
+                <span>1000 m²</span>
+              </div>
+            </div>
+
+            <!-- Tipo de trato (Venta o Renta) -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Tipo de trato</label
+              >
+              <div class="flex gap-4">
+                <label class="flex items-center">
+                  <input
+                    type="radio"
+                    name="deal-type"
+                    class="form-radio text-brand focus:ring-brand"
+                  />
+                  <span class="ml-2">Venta</span>
+                </label>
+                <label class="flex items-center">
+                  <input
+                    type="radio"
+                    name="deal-type"
+                    class="form-radio text-brand focus:ring-brand"
+                  />
+                  <span class="ml-2">Renta</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Botón de aplicar filtros -->
+            <button
+              type="submit"
+              class="w-full bg-brand text-white px-4 py-2 rounded hover:bg-brand-600 transition duration-300"
+            >
+              Aplicar filtros
+            </button>
+          </form>
+        </div>
       </div>
 
-        <!-- Listado de propiedades -->
-        <div class="md:w-3/4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- {properties.map(property => (
-                  
-                  <PropertyCard {...property} />
-                ))} -->
-            </div>
-
-            <!-- Paginación -->
-            <div class="mt-8 flex justify-center">
-                <nav class="inline-flex rounded-md shadow">
-                    <a href="#" class="px-4 py-2 rounded-l-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-                        Anterior
-                    </a>
-                    <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-                        1
-                    </a>
-                    <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-blue-600 font-bold hover:bg-gray-50">
-                        2
-                    </a>
-                    <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-                        3
-                    </a>
-                    <a href="#" class="px-4 py-2 rounded-r-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
-                        Siguiente
-                    </a>
-                </nav>
-            </div>
+      <!-- Listado de propiedades -->
+      <div class="md:w-3/4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {properties.map((property: PropertyResponse) => (
+            <PropertyCard data={property.data} currency="MXN" />
+          ))}
         </div>
+
+        <!-- Paginación -->
+        <div class="mt-8 flex justify-center">
+          <nav class="inline-flex rounded-md shadow">
+            <a
+              href={`/properties?page=${pagination.page - 1}&limit=${pagination.limit}`}
+              class={`px-4 py-2 rounded-l-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 ${
+                pagination.page === 1 ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              aria-disabled={pagination.page === 1}
+            >
+              Anterior
+            </a>
+            
+            {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(
+              (pageNum) => (
+                <a
+                  href={`/properties?page=${pageNum}&limit=${pagination.limit}`}
+                  class={`px-4 py-2 border-t border-b border-gray-300 bg-white hover:bg-gray-50 ${
+                    pageNum === pagination.page
+                      ? 'text-brand font-bold'
+                      : 'text-gray-700'
+                  }`}
+                >
+                  {pageNum}
+                </a>
+              )
+            )}
+
+            <a
+              href={`/properties?page=${pagination.page + 1}&limit=${pagination.limit}`}
+              class={`px-4 py-2 rounded-r-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 ${
+                pagination.page === pagination.totalPages
+                  ? 'opacity-50 cursor-not-allowed'
+                  : ''
+              }`}
+              aria-disabled={pagination.page === pagination.totalPages}
+            >
+              Siguiente
+            </a>
+          </nav>
+        </div>
+      </div>
     </div>
   </main>
   <!-- <ConstructionForm /> -->

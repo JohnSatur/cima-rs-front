@@ -1,0 +1,115 @@
+---
+import type { Property } from "@/types/property";
+import { Image } from 'astro:assets';
+import noImagesPlaceholder from '@images/no-images.jpg';
+import { DealType } from '@/types/construction.enum';
+
+interface Props {
+  data: Property;
+  currency?: string;
+}
+
+const { data, currency = 'MXN' } = Astro.props;
+
+const formattedAddress = [
+  data.address.neighborhood || '',
+  data.address.zipCode ? `C.P. ${data.address.zipCode}` : '',
+  data.address.city || '',
+  data.address.state || '',
+  data.address.country || ''
+].filter(Boolean).join(', ');
+
+const tagColor = data.dealType === DealType.VENTA ? "bg-blue-500" : "bg-green-500";
+
+// Determinar si es un terreno o construcción
+const isLand = data.propertyType === 'Land';
+console.log(data.price);
+---
+
+<div class="rounded-lg overflow-hidden bg-white shadow-lg">
+  <div class="relative h-64">
+    {data.coverImage ? (
+      <Image 
+        src={data.coverImage} 
+        width={450}
+        height={256}
+        alt={`Propiedad en ${data.address.neighborhood}`} 
+        class="w-full h-64 object-cover"
+      />
+    ) : (
+      <Image
+        src={noImagesPlaceholder}
+        alt={`Propiedad en ${data.address.neighborhood} (No hay imagen)`}
+        class="w-full h-full object-cover"
+        width={450}
+        height={256}
+      />
+    )}
+    <!-- Etiqueta dinámica -->
+    <div class={`absolute top-4 left-4 ${tagColor} text-white px-4 py-2 rounded-full text-xs font-semibold uppercase`}>
+      {data.dealType === DealType.VENTA ? 'Venta' : 'Renta'}
+    </div>
+  </div>
+  <div class="p-6">
+    <div class="flex justify-between items-baseline mb-4">
+      <h2 class="text-3xl font-bold text-gray-800">
+        {data.price.toLocaleString('es-MX', { style: 'currency', currency })}
+      </h2>
+      <span class="text-sm text-gray-500 font-medium">{currency}</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <div class="flex gap-4 text-gray-600">
+        {isLand ? (
+          <>
+            {data.landArea && (
+              <span class="flex items-center text-sm font-medium">
+                <i class="ri-map-pin-2-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {data.landArea} M²
+              </span>
+            )}
+            {data.landOccupationCoefficient && (
+              <span class="flex items-center text-sm font-medium">
+                <i class="ri-building-2-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {data.landOccupationCoefficient}%
+              </span>
+            )}
+            {data.landUse && (
+              <span class="flex items-center text-sm font-medium">
+                <i class="ri-landscape-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {data.landUse}
+              </span>
+            )}
+          </>
+        ) : (
+          <>
+            {data.rooms && (
+              <span class="flex items-center text-sm font-medium">
+                <i class="ri-home-2-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {data.rooms}
+              </span>
+            )}
+            {data.bathrooms && (
+              <span class="flex items-center text-sm font-medium">
+                <i class="ri-drop-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {data.bathrooms}
+              </span>
+            )}
+            {data.builtArea && (
+              <span class="flex items-center text-sm font-medium">
+                <i class="ri-grid-fill text-xl mr-1 text-brand-300 drop-shadow-sm"></i> {data.builtArea} M²
+              </span>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+    <address class="text-gray-600 my-4 not-italic">
+      {formattedAddress.split('\n').map((line: string) => (
+        <p>{line}</p>
+      ))}
+    </address>
+    <div class="border-t border-gray-200 pt-4">
+      <a 
+        href={`/properties/${isLand ? 'land' : 'construction'}/${data._id}`} 
+        class="w-full inline-block text-center bg-brand-600 text-white py-2 rounded-full font-semibold hover:bg-brand-700 transition duration-300"
+      >
+        Ver más
+      </a>
+    </div>
+  </div>
+</div>
