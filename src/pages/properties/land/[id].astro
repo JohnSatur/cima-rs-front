@@ -1,47 +1,125 @@
 ---
-import LandFeaturesSection from '@/components/sections/properties/LandFeaturesSection.astro';
-import PropertyGallerySection from '@/components/sections/properties/PropertyGallerySection.astro';
-import MainLayout from '@/layouts/MainLayout.astro';
-import type { LandResponse } from '@/types/api.interface';
+export const prerender = true;
 
-const { id } = Astro.params;
+// Layouts
+import MainLayout from '@layouts/MainLayout.astro';
 
-const response = await fetch(`http://localhost:3000/api/v1/properties/${id}`);
-const landResponse: LandResponse = await response.json();
+// Components
+import ContactFormSection from '@/components/sections/properties/ContactFormSection.astro';
+import LandFeaturesSection from '@components/sections/properties/LandFeaturesSection.astro';
+import LocationMapSection from '@components/sections/properties/LocationMapSection.astro';
+import PropertyGallerySection from '@components/sections/properties/PropertyGallerySection.astro';
+import PropertyTitleSection from '@/components/sections/properties/PropertyTitleSection.astro';
+import AgentCard from '@/components/sections/properties/AgentCard.astro';
 
-if (!landResponse) {
-  return new Response(null, {
-    status: 404,
-    statusText: 'Not Found'
-  });
+// Types
+import { DealType } from '@/types/property.enum';
+
+// Utils
+import { capitalizeFirstLetter } from '@utils/string';
+
+import claudia from '@images/claudia-1.jpg';
+import type { Land } from '@/types/property.interface';
+
+// Generar rutas estáticas para cada terreno
+export async function getStaticPaths() {
+  console.log('🚀 Iniciando generación de rutas estáticas para terrenos...');
+  try {
+    // Obtener todos los terrenos
+    const response = await fetch('http://localhost:3000/api/v1/properties/all?propertyType=Land');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    // console.log('📦 Datos recibidos:', data);
+    
+    if (!data.properties || !Array.isArray(data.properties)) {
+      throw new Error('Formato de datos inválido');
+    }
+    
+    // Generar una ruta para cada terreno
+    const paths = data.properties.map((property: Land) => ({
+      params: { id: property._id },
+      props: { property: property }
+    }));
+    
+    // console.log('🛣️ Rutas generadas:', paths);
+    return paths;
+  } catch (error) {
+    console.error('❌ Error al obtener los terrenos:', error);
+    return [];
+  }
 }
 
-const land = landResponse.data;
+// Props tipadas para la página
+interface Props {
+  property: Land;
+}
+
+// Obtener los props de la ruta
+const { property } = Astro.props;
+// console.log('🏠 Renderizando terreno:', property);
+
+// Manejar el caso de terreno no encontrado
+if (!property) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Terreno no encontrado',
+  });
+}
 ---
 
-<MainLayout title={`Propiedad en ${land.address.neighborhood}`}>
-  <PropertyGallerySection images={land.images} />
+<MainLayout title={`Terreno en ${property.address.neighborhood}`}>
+  <PropertyGallerySection coverImage={property.coverImage} images={property.images} />
 
   <main class="max-w-7xl mx-auto px-4 py-8">
-
     <div class="mt-8">
       <div class="flex justify-between items-start">
-        <div>
-          <h1 class="text-3xl font-bold text-gray-900">{`Terreno en ${land.address.neighborhood}`}</h1>
-          <p class="text-7xl font-bold mt-2 text-green-700">
-            ${new Intl.NumberFormat('es-MX').format(land.price)} MXN
-          </p>
-        </div>
-        <span class={`px-4 py-2 rounded-full font-semibold ${
-          land.dealType === 'venta' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
-        }`}>
-          {land.dealType}
+        <PropertyTitleSection
+          constructionType={'terreno'}
+          neighborhood={property.address.neighborhood}
+          price={property.price}
+        />
+        <span
+          class={`px-4 py-2 rounded-full font-semibold ${
+            property.dealType === DealType.VENTA
+              ? "bg-blue-100 text-blue-800"
+              : "bg-green-100 text-green-800"
+          }`}
+        >
+          {capitalizeFirstLetter(property.dealType)}
         </span>
       </div>
-      <p class="mt-4 text-gray-600">{land.description}</p>
+      <p class="mt-4 text-gray-600">{property.description}</p>
     </div>
 
     <!-- Features -->
-    <LandFeaturesSection landArea={land.landArea} landUse={land.landUse} landOccupationCoefficient={land.landOccupationCoefficient} landType={land.landType} topography={land.topography} />
+    <LandFeaturesSection landArea={property.landArea} landUse={property.landUse} landOccupationCoefficient={property.landOccupationCoefficient} landType={property.landType} topography={property.topography} />
+
+    <!-- Location -->
+    <LocationMapSection
+      lat={property.location?.latitude}
+      lng={property.location?.longitude}
+    />
+
+    <div class="mt-12 relative bg-cover bg-center py-16">
+      <div class="relative z-10 container mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Contact Form -->
+          <ContactFormSection />
+
+          <!-- Agent Information -->
+          <AgentCard
+            name="Claudia de la Luna"
+            role="Agente Inmobiliario"
+            email="claudia@cimabienesraices.com"
+            phone="+52 228 122 9452"
+            image={claudia}
+          />
+        </div>
+      </div>
+    </div>
   </main>
 </MainLayout>

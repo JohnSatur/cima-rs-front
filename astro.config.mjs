@@ -10,6 +10,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   integrations: [mdx()],
-  output: 'server',
+  output: 'static',
   adapter: netlify(),
 });

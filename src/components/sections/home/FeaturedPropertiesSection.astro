@@ -1,8 +1,8 @@
 ---
-import ConstructionCard from "@/components/ui/ConstructionCard.astro";
+export const prerender = true;
+
 import PropertyCard from "@/components/ui/PropertyCard.astro";
 import type { PropertyResponse } from "@/types/api.interface";
-import { PropertyType } from "@/types/property.enum";
 
 const filters = [
   { label: "Todo", active: true },
@@ -10,10 +10,23 @@ const filters = [
   { label: "Venta", active: false },
 ];
 
-const response = await fetch(
-  "http://localhost:3000/api/v1/properties/filter?featured=true"
-);
-const { properties }: { properties: PropertyResponse[] } = await response.json();
+let properties: PropertyResponse[] = [];
+
+try {
+  const response = await fetch(
+    "http://localhost:3000/api/v1/properties/filter?featured=true"
+  );
+  const data = await response.json();
+  
+  if (!data.properties || !Array.isArray(data.properties)) {
+    console.error('❌ La respuesta de la API no tiene el formato esperado:', data);
+    throw new Error('Formato de respuesta inválido');
+  }
+  
+  properties = data.properties;
+} catch (error) {
+  console.error('❌ Error al obtener propiedades destacadas:', error);
+}
 ---
 
 <section class="py-16 px-4">

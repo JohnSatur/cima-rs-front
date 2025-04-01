@@ -3,7 +3,7 @@ import type { ConstructionType } from '@/types/property.enum';
 import { capitalizeFirstLetter } from '@utils/string';
 
 interface Props {
-  constructionType: ConstructionType;
+  constructionType: ConstructionType | 'terreno';
   neighborhood?: string;
   price: number;
 }

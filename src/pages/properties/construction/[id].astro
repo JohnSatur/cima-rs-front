@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 // Layouts
 import MainLayout from '@layouts/MainLayout.astro';
 
@@ -12,70 +13,105 @@ import PropertyTitleSection from '@/components/sections/properties/PropertyTitle
 import AgentCard from '@/components/sections/properties/AgentCard.astro';
 
 // Types
-import type { ConstructionResponse } from '@/types/api.interface';
 import { DealType } from '@/types/property.enum';
 
 // Utils
 import { capitalizeFirstLetter } from '@utils/string';
 
 import claudia from '@images/claudia-1.jpg';
+import type { Construction } from '@/types/property.interface';
 
-const { id } = Astro.params;
-
-const response = await fetch(`http://localhost:3000/api/v1/properties/${id}`);
-const constructionResponse: ConstructionResponse = await response.json();
-
-if (!constructionResponse) {
-  return new Response(null, {
-    status: 404,
-    statusText: 'Not Found',
-  });
+// Generar rutas estáticas para cada propiedad
+export async function getStaticPaths() {
+  console.log('🚀 Iniciando generación de rutas estáticas para construcciones...');
+  try {
+    // Obtener todas las propiedades de tipo construcción
+    const response = await fetch('http://localhost:3000/api/v1/properties/all?propertyType=Construction');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    // console.log('📦 Datos recibidos:', data);
+    
+    if (!data.properties || !Array.isArray(data.properties)) {
+      throw new Error('Formato de datos inválido');
+    }
+    
+    // Generar una ruta para cada propiedad
+    const paths = data.properties.map((property: Construction) => ({
+      params: { id: property._id },
+      props: { property: property }
+    }));
+    
+    // console.log('🛣️ Rutas generadas:', paths);
+    return paths;
+  } catch (error) {
+    console.error('❌ Error al obtener las propiedades:', error);
+    return [];
+  }
 }
 
-const construction = constructionResponse.data;
+// Props tipadas para la página
+interface Props {
+  property: Construction;
+}
+
+// Obtener los props de la ruta
+const { property } = Astro.props;
+// console.log('🏠 Renderizando propiedad:', property);
+
+// Manejar el caso de propiedad no encontrada
+if (!property) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Propiedad no encontrada',
+  });
+}
 ---
 
-<MainLayout title={`Propiedad en ${construction.address.neighborhood}`}>
-  <PropertyGallerySection coverImage={construction.coverImage} images={construction.images} />
+<MainLayout title={`Propiedad en ${property.address.neighborhood}`}>
+  <PropertyGallerySection coverImage={property.coverImage} images={property.images} />
 
   <main class="max-w-7xl mx-auto px-4 py-8">
     <div class="mt-8">
       <div class="flex justify-between items-start">
         <PropertyTitleSection
-          constructionType={construction.constructionType}
-          neighborhood={construction.address.neighborhood}
-          price={construction.price}
+          constructionType={property.constructionType}
+          neighborhood={property.address.neighborhood}
+          price={property.price}
         />
         <span
           class={`px-4 py-2 rounded-full font-semibold ${
-            construction.dealType === DealType.VENTA
+            property.dealType === DealType.VENTA
               ? "bg-blue-100 text-blue-800"
               : "bg-green-100 text-green-800"
           }`}
         >
-          {capitalizeFirstLetter(construction.dealType)}
+          {capitalizeFirstLetter(property.dealType)}
         </span>
       </div>
-      <p class="mt-4 text-gray-600">{construction.description}</p>
+      <p class="mt-4 text-gray-600">{property.description}</p>
     </div>
 
     <!-- Features -->
     <ConstructionFeaturesSection
-      rooms={construction.rooms}
-      bathrooms={construction.bathrooms}
-      builtArea={construction.builtArea}
-      landArea={construction.landArea}
-      floors={construction.floors}
+      rooms={property.rooms}
+      bathrooms={property.bathrooms}
+      builtArea={property.builtArea}
+      landArea={property.landArea}
+      floors={property.floors}
     />
 
     <!-- Location -->
     <LocationMapSection
-      lat={construction.location?.latitude}
-      lng={construction.location?.longitude}
+      lat={property.location?.latitude}
+      lng={property.location?.longitude}
     />
 
     <!-- Equipment -->
-    <PropertyEquipmentSection equipment={construction.equipment} />
+    <PropertyEquipmentSection equipment={property.equipment} />
 
     <div class="mt-12 relative bg-cover bg-center py-16">
       <div class="relative z-10 container mx-auto px-4">

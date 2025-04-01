@@ -1,0 +1,91 @@
+---
+// @ts-nocheck
+export const prerender = true;
+
+import PropertyCard from "@/components/ui/PropertyCard.astro";
+import PropertyFilters from "@/components/ui/PropertyFilters.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import type { Property } from "@/types/property.interface";
+
+export async function getStaticPaths({ paginate }) {
+  // Obtener todas las propiedades en tiempo de construcción
+  const response = await fetch('http://localhost:3000/api/v1/properties/all');
+  const data = await response.json();
+
+  if (!data.properties || !Array.isArray(data.properties)) {
+    console.error('❌ La respuesta de la API no tiene el formato esperado:', data);
+    return [];
+  }
+
+  // Generar páginas con 6 propiedades por página
+  return paginate(data.properties, { pageSize: 6 });
+}
+
+// Obtener los datos de la página actual
+const { page } = Astro.props;
+const properties = page.data;
+---
+
+<MainLayout title="Propiedades">
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row gap-8">
+      <div class="md:w-1/4">
+        <PropertyFilters />
+      </div>
+
+      <!-- Listado de propiedades -->
+      <div class="md:w-3/4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {properties.map((property: Property) => (
+            <PropertyCard data={property} currency="MXN" />
+          ))}
+        </div>
+
+        <!-- Paginación -->
+        <div class="mt-8 flex justify-center">
+          <nav class="inline-flex rounded-md shadow">
+            {page.url.first && (
+              <a
+                href={page.url.first}
+                class="px-4 py-2 rounded-l-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+              >
+                Primera
+              </a>
+            )}
+            
+            {page.url.prev && (
+              <a
+                href={page.url.prev}
+                class="px-4 py-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+              >
+                Anterior
+              </a>
+            )}
+
+            <span class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700">
+              Página {page.currentPage} de {page.lastPage}
+            </span>
+
+            {page.url.next && (
+              <a
+                href={page.url.next}
+                class="px-4 py-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+              >
+                Siguiente
+              </a>
+            )}
+
+            {page.url.last && (
+              <a
+                href={page.url.last}
+                class="px-4 py-2 rounded-r-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+              >
+                Última
+              </a>
+            )}
+          </nav>
+        </div>
+      </div>
+    </div>
+  </main>
+</MainLayout> 
