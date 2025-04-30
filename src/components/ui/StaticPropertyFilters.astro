@@ -1,0 +1,77 @@
+---
+interface Props {
+  cities?: string[];
+  minPrice?: number;
+  maxPrice?: number;
+  minArea?: number;
+  maxArea?: number;
+}
+
+const {
+  cities = ['Xalapa', 'Puebla', 'Veracruz', 'Guadalajara'],
+  minPrice = 1000000,
+  maxPrice = 17000000,
+  minArea = 100,
+  maxArea = 1000,
+} = Astro.props;
+
+// Obtener los valores actuales de la URL
+const currentUrl = new URL(Astro.url);
+const currentCity = currentUrl.searchParams.get('city') || '';
+const currentDealType = currentUrl.searchParams.get('dealType') || '';
+---
+
+<div class="bg-white p-6 rounded-lg shadow-md">
+  <h2 class="text-xl font-semibold mb-4 text-gray-800">Filtros</h2>
+  <form method="GET" action="/properties/1">
+    <!-- Ciudad -->
+    <div class="mb-4">
+      <label for="city" class="block text-sm font-medium text-gray-700 mb-2">Ciudad</label>
+      <select
+        id="city"
+        name="city"
+        class="w-full p-2 border rounded focus:ring-2 focus:ring-brand focus:border-brand"
+      >
+        <option value="">Todas las ciudades</option>
+        {cities.map((city) => (
+          <option value={city} selected={city === currentCity}>{city}</option>
+        ))}
+      </select>
+    </div>
+
+    <!-- Tipo de trato (Venta o Renta) -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de trato</label>
+      <div class="flex gap-4">
+        <label class="flex items-center">
+          <input
+            type="radio"
+            name="dealType"
+            value="venta"
+            class="form-radio text-brand focus:ring-brand"
+            checked={currentDealType === 'venta'}
+          />
+          <span class="ml-2">Venta</span>
+        </label>
+        <label class="flex items-center">
+          <input
+            type="radio"
+            name="dealType"
+            value="renta"
+            class="form-radio text-brand focus:ring-brand"
+            checked={currentDealType === 'renta'}
+          />
+          <span class="ml-2">Renta</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Botón de aplicar filtros -->
+    <button
+      type="submit"
+      class="w-full bg-brand text-white px-4 py-2 rounded hover:bg-brand-600 transition duration-300"
+    >
+      Aplicar filtros
+    </button>
+  </form>
+</div> 

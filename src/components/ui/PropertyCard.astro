@@ -23,6 +23,20 @@ const tagColor = data.dealType === DealType.VENTA ? "bg-blue-500" : "bg-green-50
 
 // Determinar si es un terreno o construcción
 const isLand = data.propertyType === PropertyType.LAND;
+
+// Función de ayuda para formatear el precio de manera segura
+const formatPrice = (price: number | null | undefined): string => {
+  if (price === null || price === undefined) {
+    return 'Precio no disponible';
+  }
+  try {
+    return price.toLocaleString('es-MX', { style: 'currency', currency });
+  } catch (error) {
+    console.error('Error al formatear el precio:', error);
+    return 'Precio no disponible';
+  }
+};
+
 ---
 
 <div class="rounded-lg overflow-hidden bg-white shadow-lg">

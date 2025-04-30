@@ -1,4 +1,23 @@
 ---
-export const prerender = true;
-return Astro.redirect('/properties/1');
+import PropertyCard from "@/components/ui/PropertyCard.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import type { Property } from "@/types/property.interface";
+
+// Hacer la petición al backend para obtener todas las propiedades
+const response = await fetch('http://localhost:3000/api/v1/properties/all');
+const data = await response.json();
+
+const { properties }:{ properties: Property[] } = data;
+
+console.log(properties);
 ---
+
+<MainLayout title="Propiedades">
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {properties.map((property: Property) => (
+        <PropertyCard data={property} currency="MXN" />
+      ))}
+    </div>
+  </main>
+</MainLayout>
