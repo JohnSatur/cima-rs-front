@@ -10,49 +10,192 @@ interface Props {
 }
 
 const { name, role, email, phone, image } = Astro.props;
+
+// Format phone number for WhatsApp (remove any non-digit characters)
+const whatsappPhone = phone.replace(/\D/g, '');
 ---
 
-<div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-xl backdrop-blur-sm">
-  <div class="flex items-center gap-4 mb-6">
+<div class="agent-card">
+  <div class="agent-image-container">
     <Image
       src={image}
       alt={name}
-      class="w-48 h-48 rounded-full object-cover border-4 border-brand-500 shadow-lg"
+      class="agent-image"
+      width={300}
+      height={300}
     />
-    <div>
-      <h3 class="text-2xl font-bold text-gray-800">{name}</h3>
-      <p class="text-brand-600 font-semibold">{role}</p>
-    </div>
   </div>
-  <div class="space-y-4">
-    <p class="flex items-center gap-3 text-gray-700">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 text-brand-500"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
-        ></path>
-      </svg>
-      <span class="text-lg">{phone}</span>
-    </p>
-    <p class="flex items-center gap-3 text-gray-700">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 text-brand-500"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
-        ></path>
-        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
-        ></path>
-      </svg>
-      <span class="text-lg">{email}</span>
-    </p>
+  <div class="agent-info">
+    <h2 class="agent-name">{name}</h2>
+    <p class="agent-role">{role}</p>
+    
+    <div class="agent-contact">
+      <a href={`tel:${phone}`} class="contact-button phone-button">
+        <span class="icon">📞</span>
+        <span>Llamar</span>
+      </a>
+      
+      <a href={`https://wa.me/${whatsappPhone}`} target="_blank" rel="noopener noreferrer" class="contact-button whatsapp-button">
+        <span class="icon">💬</span>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+
+    <div class="agent-details">
+      <div class="detail-item">
+        <span class="detail-icon">✉️</span>
+        <span class="detail-text">{email}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-icon">📍</span>
+        <span class="detail-text">Veracruz, México</span>
+      </div>
+    </div>
   </div>
 </div>
 
+<style>
+  .agent-card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 500px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .agent-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .agent-image-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .agent-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .agent-card:hover .agent-image {
+    transform: scale(1.03);
+  }
+
+  .agent-info {
+    padding: 2rem;
+  }
+
+  .agent-name {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1a202c;
+  }
+
+  .agent-role {
+    font-size: 1rem;
+    color: #64748b;
+    margin: 0.25rem 0 1.5rem;
+    font-weight: 500;
+  }
+
+  .agent-contact {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    flex: 1;
+  }
+
+  .phone-button {
+    background-color: #f8fafc;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+  }
+
+  .phone-button:hover {
+    background-color: #f1f5f9;
+  }
+
+  .whatsapp-button {
+    background-color: #25d366;
+    color: white;
+  }
+
+  .whatsapp-button:hover {
+    background-color: #22c55e;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .agent-details {
+    margin-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1.5rem;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .detail-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+  }
+
+  .detail-text {
+    font-size: 0.9375rem;
+    color: #334155;
+  }
+
+  @media (min-width: 640px) {
+    .agent-card {
+      flex-direction: row;
+      max-width: 800px;
+    }
+
+    .agent-image-container {
+      width: 40%;
+      height: auto;
+    }
+
+    .agent-info {
+      width: 60%;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .agent-contact {
+      flex-direction: column;
+    }
+  }
+</style>

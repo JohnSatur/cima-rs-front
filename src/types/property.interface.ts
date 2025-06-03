@@ -12,7 +12,7 @@ interface Address {
 interface Location {
   longitude?: number;
   latitude?:  number;
-  _id?:       string;
+  // _id?:       string;
 }
 
 interface BaseProperty {

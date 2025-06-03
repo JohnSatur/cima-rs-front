@@ -1,0 +1,44 @@
+[
+  {
+    "id": "VC008",
+    "address": {
+      "street": "Camino sin Nombre",
+      "intNumber": "s/n",
+      "extNumber": "412",
+      "neighborhood": "Rancho San Salvador",
+      "zipCode": 91637,
+      "city": "Xalapa",
+      "state": "Veracruz",
+      "country": "México"
+    },
+    "description": "Residencia tipo campestre, dentro de fraccionamiento privado. Rodeada de jardínes y terrazas. Primer Nivel: cochera techada para tres autos, fuente de agua, caseta de vigilancia con recámara, cocineta y baño completo. Recibidor a doble altura, medio baño,amplia cocina integral con acabados en granito, area de despensa, desayunador, area de servicio, cuarto de blancos, área de TV, sala y comedor con techo de boveda catalana, amplia terraza con vista al jardín y alberca con bomba de calor, cuarto de visitas con baño y aire acondicionado, dos medios baños para la alberca, sauna y regadera, area para fogata, cava y estudio. Segundo nivel: amplia recamara principal con vestidor y baño completo con doble ovalín; dos recamaras con vestidor y baño; recamara con closet; cuarto de servicio con baño. La casa cuenta on cerco eléctrico, dos cisternas (una pluvial), páneles solares, acabados de lujo.",
+    "price": 17854000,
+    "landArea": 1500,
+    "dealType": "venta",
+    "services": ["Agua", "Luz", "Internet"],
+    "location": {
+      "longitude": -96.8523644,
+      "latitude": 19.5674442
+    },
+    "notes": "Propiedad en excelentes condiciones, lista para habitarse",
+    "commissionPercentage": 0.05,
+    "ownerName": "ANGEL MORALES BLANCHETTH",
+    "featured": false,
+    "coverImage": "VC004/VC003-6.jpeg",
+    "images": [
+      "VC004/VC003-6.jpeg",
+      "VC004/VC003-6.jpeg"
+    ],
+    "rooms": 5,
+    "bathrooms": 6.5,
+    "builtArea": 618,
+    "floors": 2,
+    "equipment": ["Cisterna", "Bomba", "calefactor para alberca", "Baño de vapor", "celdas solares", "caseta de vigilancia con baño y cocineta"],
+    "finishes": "Lujo",
+    "furnished": false,
+    "constructionStyle": "Mexicano Moderno",
+    "private": true,
+    "constructionYear": 2004,
+    "constructionType": "casa"
+  }
+]

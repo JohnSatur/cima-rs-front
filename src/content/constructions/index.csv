@@ -1,0 +1,9 @@
+id,street,intNumber,extNumber,neighborhood,zipCode,city,state,country,description,price,landArea,dealType,services,longitude,latitude,notes,commissionPercentage,code,ownerName,featured,coverImage,images,rooms,bathrooms,builtArea,floors,equipment,finishes,furnished,constructionStyle,private,constructionYear,constructionType
+casa-ejemplo,Av. Principal,4A,123,Residencial Las Palmas,45050,Guadalajara,Jalisco,México,"Espectacular residencia ubicada en una de las zonas más exclusivas de Guadalajara. Esta propiedad ofrece espacios amplios y luminosos, perfectos para una familia que busca comodidad y elegancia.
+
+Características Destacadas:
+- Amplia sala-comedor con vista al jardín
+- Cocina integral equipada
+- Habitación principal con baño completo y vestidor
+- Jardín con área de terraza
+- Estacionamiento para 2 autos",2500000,200,VENTA,"Agua,Luz,Internet,Gas",-103.3479,20.6597,Excelente ubicación cerca de centros comerciales,3,VC001,Juan Pérez,true,/assets/img/no-images.jpg,,3,2.5,180,2,"Cocina integral,Aires acondicionados",Acabados de lujo en mármol y madera,false,Contemporáneo,true,2022,CASA 

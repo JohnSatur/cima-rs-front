@@ -36,14 +36,13 @@ const formatPrice = (price: number | null | undefined): string => {
     return 'Precio no disponible';
   }
 };
-
 ---
 
 <div class="rounded-lg overflow-hidden bg-white shadow-lg">
   <div class="relative h-64">
     {data.coverImage ? (
-      <Image 
-        src={data.coverImage} 
+      <img 
+        src={data.coverImage}
         width={450}
         height={256}
         alt={`Propiedad en ${data.address.neighborhood}`} 
